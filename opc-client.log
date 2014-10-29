@@ -1,0 +1,77 @@
+07.02.2014 15:49:42 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:42 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:44 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:44 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:46 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:46 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:48 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:48 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:50 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:50 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:52 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:52 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:54 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:54 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:56 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:56 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:49:58 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:49:58 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:50:00 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:50:00 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:50:02 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:50:02 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:50:04 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:50:04 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:50:06 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:50:06 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:50:08 INFO main javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:50:08 ERROR main javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:07 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:07 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:09 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:09 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:11 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:11 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:13 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:13 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:15 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:15 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:17 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:17 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:19 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:19 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:33 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:33 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:35 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:35 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:37 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:37 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:39 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:39 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:41 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:41 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+07.02.2014 15:51:43 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+07.02.2014 15:51:43 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.UnableAddItemException: Unable to register some item to group. 
+12.02.2014 17:28:46 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+12.02.2014 17:28:46 INFO Thread-0 javafish.clients.opc.JEasyOpc - OPC Groups are registered.
+12.02.2014 17:28:46 INFO Thread-0 javafish.clients.opc.JEasyOpc - Asynchronous mode 2.0 is started.
+12.02.2014 17:28:46 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:48 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:50 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:52 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:54 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:56 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:28:58 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:00 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:02 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:04 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:26 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:28 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:29:30 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:35:08 INFO Thread-0 javafish.clients.opc.JEasyOpc - The OPC Client is connected.
+12.02.2014 17:35:08 INFO Thread-0 javafish.clients.opc.JEasyOpc - OPC Groups are registered.
+12.02.2014 17:35:08 INFO Thread-0 javafish.clients.opc.JEasyOpc - Asynchronous mode 2.0 is started.
+12.02.2014 17:36:46 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:36:48 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:36:50 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
+12.02.2014 17:36:52 ERROR Thread-0 javafish.clients.opc.JEasyOpc - javafish.clients.opc.exception.ConnectivityException: The connection to the OPC Server has failed: localhost->Smar.DfiOleServer.0
