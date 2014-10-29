@@ -48,7 +48,7 @@ public class TesteOPC {
         System.out.println(array[2].toString().trim() + "\n" + array[6].toString().trim());
 
         try {
-            item2.setValue(new Variant(2.1));
+            item2.setValue(new Variant(2.2));
             jopc.synchWriteItem(group, item2);
         } catch (SynchWriteException ex) {
             Logger.getLogger(TesteOPC.class.getName()).log(Level.SEVERE, null, ex);
