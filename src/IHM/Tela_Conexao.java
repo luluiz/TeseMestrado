@@ -1,11 +1,7 @@
 package IHM;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafish.clients.opc.JEasyOpc;
 import javafish.clients.opc.JOpc;
-import javafish.clients.opc.component.OpcGroup;
-import javafish.clients.opc.component.OpcItem;
 import javafish.clients.opc.exception.*;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -18,14 +14,14 @@ import testeopc.ClienteOPC;
 public class Tela_Conexao extends javax.swing.JFrame {
 
     private JEasyOpc jopc;
-//    private ClienteOPC cliente = new ClienteOPC();
-    JComboBox<String> lista = new JComboBox<String>();
+    private ClienteOPC cliente = new ClienteOPC();
+    private JComboBox<String> lista = new JComboBox<String>();
 
     public Tela_Conexao() {
         initComponents();
         setLocationRelativeTo(null);
-//        String[] s = cliente.getAllServers(host_campo.getText());
-//        atualizarListaSV(s);
+        String[] s = cliente.getAllServers(campo_host.getText());
+        atualizarListaSV(s);
     }
 
     @SuppressWarnings("unchecked")
@@ -41,8 +37,8 @@ public class Tela_Conexao extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         campo_nomeCliente = new javax.swing.JTextField();
         lista_servidores = new javax.swing.JComboBox();
-        botao_desconectar = new javax.swing.JButton();
         botao_atualizar = new javax.swing.JButton();
+        botao_desconectar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -51,6 +47,9 @@ public class Tela_Conexao extends javax.swing.JFrame {
         setTitle("OPC COM");
 
         botao_conectar.setText("Conectar");
+        botao_conectar.setMaximumSize(new java.awt.Dimension(93, 23));
+        botao_conectar.setMinimumSize(new java.awt.Dimension(93, 23));
+        botao_conectar.setPreferredSize(new java.awt.Dimension(93, 23));
         botao_conectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_conectarActionPerformed(evt);
@@ -58,6 +57,9 @@ public class Tela_Conexao extends javax.swing.JFrame {
         });
 
         botao_cancelar.setText("Cancelar");
+        botao_cancelar.setMaximumSize(new java.awt.Dimension(93, 23));
+        botao_cancelar.setMinimumSize(new java.awt.Dimension(93, 23));
+        botao_cancelar.setPreferredSize(new java.awt.Dimension(93, 23));
         botao_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_cancelarActionPerformed(evt);
@@ -78,6 +80,13 @@ public class Tela_Conexao extends javax.swing.JFrame {
 
         lista_servidores.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Smar.DfiOleServer.0" }));
 
+        botao_atualizar.setText("Atualizar");
+        botao_atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_atualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -89,10 +98,13 @@ public class Tela_Conexao extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campo_nomeCliente)
-                    .addComponent(campo_host)
-                    .addComponent(lista_servidores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campo_nomeCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lista_servidores, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_atualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(campo_host))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,7 +117,8 @@ public class Tela_Conexao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lista_servidores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lista_servidores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_atualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campo_nomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,13 +130,6 @@ public class Tela_Conexao extends javax.swing.JFrame {
         botao_desconectar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_desconectarActionPerformed(evt);
-            }
-        });
-
-        botao_atualizar.setText("Atualizar");
-        botao_atualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_atualizarActionPerformed(evt);
             }
         });
 
@@ -141,17 +147,15 @@ public class Tela_Conexao extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botao_conectar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botao_desconectar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botao_atualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botao_cancelar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botao_conectar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botao_desconectar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botao_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,13 +163,12 @@ public class Tela_Conexao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botao_cancelar)
-                    .addComponent(botao_atualizar)
-                    .addComponent(botao_conectar)
+                    .addComponent(botao_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_conectar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_desconectar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,6 +182,7 @@ public class Tela_Conexao extends javax.swing.JFrame {
             jopc.connect();
             System.out.println("JOPC Conectado!");
             JOptionPane.showMessageDialog(rootPane, "Connected!", "", 1);
+            new Tela_Inicial().setVisible(true);
         } catch (ConnectivityException ex) {
             JOptionPane.showMessageDialog(rootPane, "Error in connection.", "ERROR", 0);
         }
@@ -192,12 +196,11 @@ public class Tela_Conexao extends javax.swing.JFrame {
     private void botao_desconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_desconectarActionPerformed
         JOpc.coUninitialize();
         JOptionPane.showMessageDialog(rootPane, "Disconnected!", "", 1);
-
     }//GEN-LAST:event_botao_desconectarActionPerformed
 
     private void botao_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_atualizarActionPerformed
-//            String[] s = cliente.getAllServers(host_campo.getText());
-//            atualizarListaSV(s);        
+        String[] s = cliente.getAllServers(campo_host.getText());
+        atualizarListaSV(s);
     }//GEN-LAST:event_botao_atualizarActionPerformed
 
     public static void main(String args[]) {

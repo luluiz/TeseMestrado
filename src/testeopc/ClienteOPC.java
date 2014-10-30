@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package testeopc;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +35,7 @@ public class ClienteOPC {
     private boolean conectado = false;
     private HandlerOPCTree handler;
     OpcGroup group = new OpcGroup("UDUGROUP", true, 100, 0.0f);
+    double conversao = 4092;
 
     public ClienteOPC() {
         JOpcBrowser.coInitialize();
@@ -49,6 +50,7 @@ public class ClienteOPC {
 
     /**
      * Obtem todos os servidor OPC existentes em um dado endereÃ§o IP.
+     *
      * @param ip IP da maquina.
      * @return Retorna um vetor com o nome de todos os servidores OPC presentes
      * na maquina. Caso nenhum servidor seja encontrada eh retornado null;
@@ -58,9 +60,9 @@ public class ClienteOPC {
         try {
             retorno = JOpcBrowser.getOpcServers(ip);
         } catch (HostException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         } catch (NotFoundServersException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         } finally {
             return retorno;
         }
@@ -70,6 +72,7 @@ public class ClienteOPC {
      * Conecta a um dado servidor OPC. Se ja estiver conectado a algum servidor,
      * eh necessario primeiro que se desconecte do mesmo atraves do metodo
      * desconectar().
+     *
      * @param ip IP do servidor.
      * @param servidor Nome do servidor OPC.
      */
@@ -92,6 +95,7 @@ public class ClienteOPC {
      * Conecta a um dado servidor OPC. Se ja estiver conectado a algum servidor,
      * eh necessario primeiro que se desconecte do mesmo atraves do metodo
      * desconectar().
+     *
      * @param servidor Nome do servidor OPC.
      */
     public void conectar(String servidor) {
@@ -103,7 +107,6 @@ public class ClienteOPC {
             //inicializar o servidorOPC e o browser
             browser = new JOpcBrowser(ip, servidor, "OPCBrowser1");
             servidorOPC = new JOpc(ip, servidor, "OPC1");
-
 
             browser.connect();
             servidorOPC.connect();
@@ -139,6 +142,7 @@ public class ClienteOPC {
 
     /**
      * Monta uma arvore para armazenar todas as tags OPC contidas no servidor.
+     *
      * @return Retorna a arvore montada.
      */
     public OPCTree getOPCTree() {
@@ -152,6 +156,7 @@ public class ClienteOPC {
 
     /**
      * Lista todas as tags OPC cadastradas no servidor. Elimina repeticoes.
+     *
      * @return Retornas todas as tags OPC.
      */
     public ArrayList<OpcItem> listarOPCItems() {
@@ -160,7 +165,9 @@ public class ClienteOPC {
     }
 
     /**
-     * Lista o nome de todas as tags OPC cadastradas no servidor. Elimina repeticoes.
+     * Lista o nome de todas as tags OPC cadastradas no servidor. Elimina
+     * repeticoes.
+     *
      * @return Retorna o nome de todas as tags OPC.
      */
     public ArrayList<String> getItemsName() {
@@ -176,6 +183,7 @@ public class ClienteOPC {
 
     /**
      * Cadastra as variaveis OPC que serao monitoradas
+     *
      * @param tagsOPC
      */
     public void cadastrarTags(ArrayList<OpcItem> tagsOPC) {
@@ -206,6 +214,7 @@ public class ClienteOPC {
 
     /**
      * Informa todas as tags OPC que foram cadastradas pelo cliente.
+     *
      * @return Retorna o vetor de tags cadastradas.
      */
     public ArrayList<OpcItem> getTagsCadastradas() {
@@ -214,6 +223,7 @@ public class ClienteOPC {
 
     /**
      * Remove do grupo uma tag previamente cadastrada.
+     *
      * @param tag Tag a ser removida do grupo.
      */
     public void removerTag(OpcItem tag) {
@@ -226,11 +236,10 @@ public class ClienteOPC {
         }
         servidorOPC.updateGroups();
     }
-    
-    double conversao = 4092;
 
     /**
      * Ler o valor de uma tag OPC.
+     *
      * @param tag Tag a ser lida.
      * @return Retorna o valor atual da tag.
      */
@@ -258,6 +267,7 @@ public class ClienteOPC {
 
     /**
      * Altera o valor atual de uma dada tag OPC.
+     *
      * @param tag Tag a ser alterada
      * @param novoValor Novo valor que sera atribuido a tag OPC.
      */
