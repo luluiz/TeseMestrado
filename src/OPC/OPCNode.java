@@ -1,4 +1,4 @@
-package testeopc;
+package OPC;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -6,7 +6,7 @@ import javafish.clients.opc.component.OpcItem;
 
 /**
  *
- * @author Allan
+ * @author Luiz
  */
 public class OPCNode {
     //Se item for diferente de null, entao o No em questao eh folha.

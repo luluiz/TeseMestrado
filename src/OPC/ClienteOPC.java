@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package testeopc;
+package OPC;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,7 +20,7 @@ import javafish.clients.opc.variant.Variant;
 
 /**
  *
- * @author Allan
+ * @author Luiz
  */
 public class ClienteOPC {
 
@@ -59,9 +54,7 @@ public class ClienteOPC {
         String[] retorno = null;
         try {
             retorno = JOpcBrowser.getOpcServers(ip);
-        } catch (HostException ex) {
-            //ex.printStackTrace();
-        } catch (NotFoundServersException ex) {
+        } catch (HostException | NotFoundServersException ex) {
             //ex.printStackTrace();
         } finally {
             return retorno;
@@ -118,11 +111,7 @@ public class ClienteOPC {
             handler = new HandlerOPCTree(browser);
             handler.resetTree();
 
-        } catch (ComponentNotFoundException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnableAddGroupException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ConnectivityException ex) {
+        } catch (ComponentNotFoundException | UnableAddGroupException | ConnectivityException ex) {
             Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -201,13 +190,7 @@ public class ClienteOPC {
             servidorOPC.updateGroups();
             servidorOPC.registerGroups();
 
-        } catch (UnableAddGroupException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnableAddItemException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ComponentNotFoundException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnableRemoveGroupException ex) {
+        } catch (UnableAddGroupException | UnableAddItemException | ComponentNotFoundException | UnableRemoveGroupException ex) {
             Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -256,9 +239,7 @@ public class ClienteOPC {
             OpcItem responseItem = servidorOPC.synchReadItem(group, tag);
             return (Double.parseDouble(responseItem.getValue().toString()) / conversao) * 100;
 
-        } catch (ComponentNotFoundException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SynchReadException ex) {
+        } catch (ComponentNotFoundException | SynchReadException ex) {
             Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -289,9 +270,7 @@ public class ClienteOPC {
             tag.setValue(new Variant(novoValor * conversao));
             servidorOPC.synchWriteItem(group, tag);
 
-        } catch (ComponentNotFoundException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SynchWriteException ex) {
+        } catch (ComponentNotFoundException | SynchWriteException ex) {
             Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

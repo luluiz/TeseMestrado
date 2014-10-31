@@ -1,4 +1,4 @@
-package testeopc;
+package OPC;
 
 import java.util.ArrayList;
 import javafish.clients.opc.component.OpcItem;
@@ -8,7 +8,7 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author Allan
+ * @author Luiz
  */
 public class OPCTree implements TreeModel {
 
@@ -24,6 +24,7 @@ public class OPCTree implements TreeModel {
 
     /**
      * Realiza uma busca na arvore na procura pelas folhas da mesma.
+     *
      * @return Retorna todas as folhas da arvore.
      */
     public ArrayList<OPCNode> getFolhas() {
@@ -59,7 +60,7 @@ public class OPCTree implements TreeModel {
     }
 
     /**
-     * 
+     *
      * @return Retorna todos os OpcItems (folhas) guardados na arvore.
      */
     public ArrayList<OpcItem> getOPCItens() {
@@ -78,7 +79,8 @@ public class OPCTree implements TreeModel {
 
     /**
      *
-     * @return Retorna todos os OpcItems (folhas) guardados na arvore sem repeticoes.
+     * @return Retorna todos os OpcItems (folhas) guardados na arvore sem
+     * repeticoes.
      */
     public ArrayList<OpcItem> getOPCItensSemRepeticao() {
         ArrayList<OpcItem> retorno = new ArrayList<OpcItem>();

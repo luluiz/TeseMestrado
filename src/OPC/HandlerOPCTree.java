@@ -1,4 +1,4 @@
-package testeopc;
+package OPC;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,7 +14,7 @@ import javafish.clients.opc.exception.UnableIBrowseException;
 
 /**
  *
- * @author Allan
+ * @author Luiz
  */
 public class HandlerOPCTree {
 
@@ -24,7 +24,6 @@ public class HandlerOPCTree {
     public HandlerOPCTree(JOpcBrowser browser) {
         this.browser = browser;
     }
-
 
     public void populaArvore() {
         OPCNode raiz = populaArvore(null);
@@ -71,13 +70,7 @@ public class HandlerOPCTree {
 
                 return node;
 
-            } catch (UnableBrowseLeafException ex1) {
-                ex1.printStackTrace();
-            } catch (UnableIBrowseException ex1) {
-                ex1.printStackTrace();
-            } catch (UnableAddGroupException ex1) {
-                ex1.printStackTrace();
-            } catch (UnableAddItemException ex1) {
+            } catch (UnableBrowseLeafException | UnableIBrowseException | UnableAddGroupException | UnableAddItemException ex1) {
                 ex1.printStackTrace();
             }
         } catch (UnableIBrowseException ex) {
