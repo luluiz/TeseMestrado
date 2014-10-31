@@ -46,19 +46,19 @@ public class Controle_Grafico2 extends ApplicationFrame {
         NumberAxis rangeAxis = new NumberAxis("Y 1");
         rangeAxis.setAutoRangeIncludesZero(false);
         XYPlot subplot = new XYPlot(collection1, null, rangeAxis, new StandardXYItemRenderer());
-        subplot.setBackgroundPaint(new Color(220, 220, 220));
+        subplot.setBackgroundPaint(new Color(245, 245, 245));
         plot.add(subplot);
 
         NumberAxis rangeAxis2 = new NumberAxis("Y 2");
         rangeAxis2.setAutoRangeIncludesZero(false);
         XYPlot subplot2 = new XYPlot(collection2, null, rangeAxis2, new StandardXYItemRenderer());
-        subplot2.setBackgroundPaint(new Color(225, 225, 225));
+        subplot2.setBackgroundPaint(new Color(245, 245, 245));
         plot.add(subplot2);
 
         NumberAxis rangeAxis3 = new NumberAxis("Y 3");
         rangeAxis3.setAutoRangeIncludesZero(false);
         XYPlot subplot3 = new XYPlot(collection3, null, rangeAxis3, new StandardXYItemRenderer());
-        subplot3.setBackgroundPaint(new Color(220, 220, 220));
+        subplot3.setBackgroundPaint(new Color(245, 245, 245));
         plot.add(subplot3);
 
         final ValueAxis axis = plot.getDomainAxis();
