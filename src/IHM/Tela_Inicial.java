@@ -1,8 +1,11 @@
 package IHM;
 
 //import graficos.Controle_Grafico;
-import graficos.Controle_Grafico2;
+import graficos.Grafico_Geral;
 import graficos.Controle_Grafico_Dial;
+import graficos.Grafico_Correcao;
+import graficos.Grafico_Diagnostico;
+import graficos.Grafico_Predicao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -13,7 +16,10 @@ import javax.swing.Timer;
  */
 public class Tela_Inicial extends javax.swing.JFrame {
 
-    private Controle_Grafico2 grafico;
+    private Grafico_Geral grafico_geral;
+    private Grafico_Correcao grafico_correcao;
+    private Grafico_Diagnostico grafico_diagnostico;
+    private Grafico_Predicao grafico_predicao;
     private Controle_Grafico_Dial graficoDial;
     private Timer t;
     private double i = 0.0;
@@ -22,8 +28,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
-        grafico = new Controle_Grafico2("Gráficos", painel_graficos.getWidth(), painel_graficos.getHeight());
-        graficoDial = new Controle_Grafico_Dial("Bomba", painel_dialTensao.getWidth(), painel_dialTensao.getHeight());
         inicializarGraficos();
         atualizarGrafico();
     }
@@ -32,15 +36,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painel_geral = new javax.swing.JPanel();
+        painel_inicial = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         botao_graficos = new javax.swing.JButton();
         botao_config = new javax.swing.JButton();
         botao_monitorar = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         painel_graficos = new javax.swing.JPanel();
+        painelAba_Graficos = new javax.swing.JTabbedPane();
+        painel_AbaGeral = new javax.swing.JPanel();
+        painel_AbaPredicao = new javax.swing.JPanel();
+        painel_AbaDiag = new javax.swing.JPanel();
+        painel_AbaCorrecao = new javax.swing.JPanel();
         painel_config = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        painelAba_config = new javax.swing.JTabbedPane();
         painel_ComOPC = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,7 +102,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             }
         });
 
-        painel_geral.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        painel_inicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jToolBar1.setBorder(null);
         jToolBar1.setFloatable(false);
@@ -157,15 +166,67 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         painel_graficos.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráficos"));
 
+        javax.swing.GroupLayout painel_AbaGeralLayout = new javax.swing.GroupLayout(painel_AbaGeral);
+        painel_AbaGeral.setLayout(painel_AbaGeralLayout);
+        painel_AbaGeralLayout.setHorizontalGroup(
+            painel_AbaGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+        );
+        painel_AbaGeralLayout.setVerticalGroup(
+            painel_AbaGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+
+        painelAba_Graficos.addTab("Geral", painel_AbaGeral);
+
+        javax.swing.GroupLayout painel_AbaPredicaoLayout = new javax.swing.GroupLayout(painel_AbaPredicao);
+        painel_AbaPredicao.setLayout(painel_AbaPredicaoLayout);
+        painel_AbaPredicaoLayout.setHorizontalGroup(
+            painel_AbaPredicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+        );
+        painel_AbaPredicaoLayout.setVerticalGroup(
+            painel_AbaPredicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+
+        painelAba_Graficos.addTab("Predição do Nível do Tanque", painel_AbaPredicao);
+
+        javax.swing.GroupLayout painel_AbaDiagLayout = new javax.swing.GroupLayout(painel_AbaDiag);
+        painel_AbaDiag.setLayout(painel_AbaDiagLayout);
+        painel_AbaDiagLayout.setHorizontalGroup(
+            painel_AbaDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+        );
+        painel_AbaDiagLayout.setVerticalGroup(
+            painel_AbaDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+
+        painelAba_Graficos.addTab("Detecção e Diagnóstico de Falhas", painel_AbaDiag);
+
+        javax.swing.GroupLayout painel_AbaCorrecaoLayout = new javax.swing.GroupLayout(painel_AbaCorrecao);
+        painel_AbaCorrecao.setLayout(painel_AbaCorrecaoLayout);
+        painel_AbaCorrecaoLayout.setHorizontalGroup(
+            painel_AbaCorrecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 533, Short.MAX_VALUE)
+        );
+        painel_AbaCorrecaoLayout.setVerticalGroup(
+            painel_AbaCorrecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+
+        painelAba_Graficos.addTab("Correção de Falhas", painel_AbaCorrecao);
+
         javax.swing.GroupLayout painel_graficosLayout = new javax.swing.GroupLayout(painel_graficos);
         painel_graficos.setLayout(painel_graficosLayout);
         painel_graficosLayout.setHorizontalGroup(
             painel_graficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addComponent(painelAba_Graficos, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         painel_graficosLayout.setVerticalGroup(
             painel_graficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 425, Short.MAX_VALUE)
+            .addComponent(painelAba_Graficos)
         );
 
         jLayeredPane1.add(painel_graficos);
@@ -234,10 +295,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Comunicação OPC", painel_ComOPC);
+        painelAba_config.addTab("Comunicação OPC", painel_ComOPC);
 
         jLabel19.setText("Arquivo:");
 
@@ -300,11 +361,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     .addComponent(botao_habilitarEdicao)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Preditor Neural", painel_RNA);
+        painelAba_config.addTab("Preditor Neural", painel_RNA);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -314,10 +375,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 386, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Classificador Fuzzy", jPanel4);
+        painelAba_config.addTab("Classificador Fuzzy", jPanel4);
 
         javax.swing.GroupLayout painel_configLayout = new javax.swing.GroupLayout(painel_config);
         painel_config.setLayout(painel_configLayout);
@@ -325,13 +386,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
             painel_configLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_configLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(painelAba_config)
                 .addContainerGap())
         );
         painel_configLayout.setVerticalGroup(
             painel_configLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_configLayout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+                .addComponent(painelAba_config)
                 .addContainerGap())
         );
 
@@ -522,20 +583,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLayeredPane1.add(painel_monitorar);
         painel_monitorar.setBounds(0, 0, 554, 448);
 
-        javax.swing.GroupLayout painel_geralLayout = new javax.swing.GroupLayout(painel_geral);
-        painel_geral.setLayout(painel_geralLayout);
-        painel_geralLayout.setHorizontalGroup(
-            painel_geralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_geralLayout.createSequentialGroup()
+        javax.swing.GroupLayout painel_inicialLayout = new javax.swing.GroupLayout(painel_inicial);
+        painel_inicial.setLayout(painel_inicialLayout);
+        painel_inicialLayout.setHorizontalGroup(
+            painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_inicialLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        painel_geralLayout.setVerticalGroup(
-            painel_geralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        painel_inicialLayout.setVerticalGroup(
+            painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-            .addGroup(painel_geralLayout.createSequentialGroup()
+            .addGroup(painel_inicialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLayeredPane1)
                 .addContainerGap())
@@ -555,14 +616,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painel_geral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painel_inicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painel_geral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painel_inicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -580,18 +641,15 @@ public class Tela_Inicial extends javax.swing.JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                double f;
-//
-//                f = 30 * Math.sin(15 * i);
-//                System.out.println("F " + f);
-//                System.out.println("tempo " + i);
-//                grafico.addValoresTeste(i, f);
-                grafico.addValores();
+                grafico_geral.addValores();
+                grafico_predicao.addValores();
+                grafico_diagnostico.addValores();
+                grafico_correcao.addValores();
+                
                 atualizarGrafico();
-                //i = i + 0.01;
             }
         };
-        t = new Timer(1000, action);
+        t = new Timer(500, action);
         t.start();
     }//GEN-LAST:event_botao_graficosActionPerformed
 
@@ -640,16 +698,40 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botao_habilitarEdicaoActionPerformed
 
     public void inicializarGraficos() {
-        grafico.pack();
-        painel_graficos.add(grafico.getContentPane());
+        grafico_geral = new Grafico_Geral("Principais Sinais do Sistema", painel_AbaGeral.getWidth(), painel_AbaGeral.getHeight());
+        grafico_predicao = new Grafico_Predicao("Gráficos da Predição do Nível do Tanque", painel_AbaPredicao.getWidth(), painel_AbaPredicao.getHeight());
+        grafico_diagnostico = new Grafico_Diagnostico("Gráficos da Detector e Diagnosticador de Falhas", painel_AbaDiag.getWidth(), painel_AbaDiag.getHeight());
+        grafico_correcao = new Grafico_Correcao("Gráficos de Correção de Falhas", painel_AbaCorrecao.getWidth(), painel_AbaCorrecao.getHeight());
+        graficoDial = new Controle_Grafico_Dial("Bomba", painel_dialTensao.getWidth(), painel_dialTensao.getHeight());
+
+        grafico_geral.pack();
+        painel_AbaGeral.add(grafico_geral.getContentPane());
+
+        grafico_predicao.pack();
+        painel_AbaPredicao.add(grafico_predicao.getContentPane());
+
+        grafico_diagnostico.pack();
+        painel_AbaDiag.add(grafico_diagnostico.getContentPane());
+
+        grafico_correcao.pack();
+        painel_AbaCorrecao.add(grafico_correcao.getContentPane());
 
         graficoDial.pack();
         painel_dialTensao.add(graficoDial.getContentPane());
     }
 
     public void atualizarGrafico() {
-        grafico.setSize(painel_graficos.getSize());
-        grafico.repaint();
+        grafico_geral.setSize(painel_AbaGeral.getSize());
+        grafico_geral.repaint();
+
+        grafico_predicao.setSize(painel_AbaPredicao.getSize());
+        grafico_predicao.repaint();
+
+        grafico_diagnostico.setSize(painel_AbaDiag.getSize());
+        grafico_diagnostico.repaint();
+
+        grafico_correcao.setSize(painel_AbaCorrecao.getSize());
+        grafico_correcao.repaint();
 
         graficoDial.setSize(painel_dialTensao.getSize());
         graficoDial.repaint();
@@ -716,20 +798,25 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTabbedPane painelAba_Graficos;
+    private javax.swing.JTabbedPane painelAba_config;
+    private javax.swing.JPanel painel_AbaCorrecao;
+    private javax.swing.JPanel painel_AbaDiag;
+    private javax.swing.JPanel painel_AbaGeral;
+    private javax.swing.JPanel painel_AbaPredicao;
     private javax.swing.JPanel painel_ComOPC;
     private javax.swing.JPanel painel_RNA;
     private javax.swing.JPanel painel_barraT1;
     private javax.swing.JPanel painel_config;
     private javax.swing.JPanel painel_dialTensao;
-    private javax.swing.JPanel painel_geral;
     private javax.swing.JPanel painel_graficos;
+    private javax.swing.JPanel painel_inicial;
     private javax.swing.JPanel painel_monitorar;
     // End of variables declaration//GEN-END:variables
 }
