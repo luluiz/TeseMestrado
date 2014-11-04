@@ -83,7 +83,7 @@ public class Grafico_Predicao extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    public void addValores() {
+    public void addValoresRand() {
         double p1 = 0 + (7 - 0) * Math.random();
         double p2 = 0 + (30 - 0) * Math.random();
         double p3 = -3 + (3 - (-3)) * Math.random();
@@ -92,6 +92,13 @@ public class Grafico_Predicao extends ApplicationFrame {
         collection2.getSeries(0).add(new Millisecond(), p2);
         collection2.getSeries(1).add(new Millisecond(), p2 * 0.5);
         collection3.getSeries(0).add(new Millisecond(), p3);
+    }
+
+    public void addValores(double tensaoBomba, double nivelT1, double predT1, double erroPredicao) {
+        collection1.getSeries(0).add(new Millisecond(), tensaoBomba);
+        collection1.getSeries(0).add(new Millisecond(), nivelT1);
+        collection1.getSeries(1).add(new Millisecond(), predT1);
+        collection1.getSeries(0).add(new Millisecond(), erroPredicao);
     }
 
     public static void main(final String[] args) {

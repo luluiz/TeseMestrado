@@ -5,6 +5,8 @@ package graficos;
  * @author Luiz
  */
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -14,6 +16,7 @@ import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
@@ -30,7 +33,7 @@ public class Grafico_Geral extends ApplicationFrame {
     final private TimeSeries nivelCorrigido = new TimeSeries("Sinal do Nível do Tanque Corrigido", Millisecond.class);
     final private TimeSeries tensaoBomba = new TimeSeries("Tensão da Bomba", Millisecond.class);
     final private TimeSeries tipoFalha = new TimeSeries("Diagnóstoco do Tipo de Falha", Millisecond.class);
-    
+
     final private Color cinza1 = new Color(215, 215, 215);
 
     public Grafico_Geral(final String title, int x, int y) {
@@ -85,18 +88,26 @@ public class Grafico_Geral extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    public void addValores() {
+    public void addValoresRand() {
         double p1 = 0 + (30 - 0) * Math.random();
         double p2 = 0 + (7 - 0) * Math.random();
         double p3 = 1 + (4 - 1) * Math.random();
 
         collection1.getSeries(0).add(new Millisecond(), p1);
-        collection1.getSeries(1).add(new Millisecond(), p1*0.1);
-        collection1.getSeries(2).add(new Millisecond(), p1*0.4);
+        collection1.getSeries(1).add(new Millisecond(), p1 * 0.1);
+        collection1.getSeries(2).add(new Millisecond(), p1 * 0.4);
         collection2.getSeries(0).add(new Millisecond(), p2);
         collection3.getSeries(0).add(new Millisecond(), p3);
     }
 
+    public void addValores(double nivelT1, double predT1, double sinalCorrigido, double tensaoBomba, double tipoFalha) {
+        collection1.getSeries(0).add(new Millisecond(), nivelT1);
+        collection1.getSeries(1).add(new Millisecond(), predT1);
+        collection1.getSeries(2).add(new Millisecond(), sinalCorrigido);
+        collection1.getSeries(0).add(new Millisecond(), tensaoBomba);
+        collection1.getSeries(0).add(new Millisecond(), tipoFalha);
+    }
+// http://stackoverflow.com/questions/6191070/jfreechart-seriesexception
     public static void main(final String[] args) {
         final Grafico_Geral demo = new Grafico_Geral("Dynamic Data Demo 3", 1020, 600);
         demo.pack();

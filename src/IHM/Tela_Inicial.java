@@ -1,6 +1,7 @@
 package IHM;
 
 //import graficos.Controle_Grafico;
+import OPC.ClienteOPC;
 import graficos.Grafico_Geral;
 import graficos.Controle_Grafico_Dial;
 import graficos.Grafico_Correcao;
@@ -8,6 +9,8 @@ import graficos.Grafico_Diagnostico;
 import graficos.Grafico_Predicao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javafish.clients.opc.component.OpcItem;
 import javax.swing.Timer;
 
 /**
@@ -23,11 +26,17 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private Controle_Grafico_Dial graficoDial;
     private Timer t;
     private double i = 0.0;
+    private ClienteOPC cliente;
+    private ArrayList<OpcItem> lista = new ArrayList<>();
+    private OpcItem nivelT1, predT1, tensaoBomba, falhasFiltradas, sinalEstimado, sinalReal, sinalCorrigido, tipoFalha;
+    private double tagErroPred;
 
-    public Tela_Inicial() {
+    public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
         setLocationRelativeTo(null);
+        this.cliente = cliente;
         setExtendedState(MAXIMIZED_BOTH);
+        CadastrarMinhasTags();
         inicializarGraficos();
         atualizarGrafico();
     }
@@ -59,6 +68,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lista_tagsOPC = new javax.swing.JList();
+        jLabel20 = new javax.swing.JLabel();
         painel_RNA = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         campo_enderecoArq = new javax.swing.JTextField();
@@ -250,6 +262,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         jLabel8.setText("JOPC");
 
+        jScrollPane2.setViewportView(lista_tagsOPC);
+
+        jLabel20.setText("Lista de Tags Cadastradas:");
+
         javax.swing.GroupLayout painel_ComOPCLayout = new javax.swing.GroupLayout(painel_ComOPC);
         painel_ComOPC.setLayout(painel_ComOPCLayout);
         painel_ComOPCLayout.setHorizontalGroup(
@@ -274,7 +290,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel8))))
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addContainerGap())
         );
         painel_ComOPCLayout.setVerticalGroup(
             painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,20 +302,25 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_ComOPCLayout.createSequentialGroup()
+                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(0, 274, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
 
         painelAba_config.addTab("Comunicação OPC", painel_ComOPC);
@@ -641,11 +666,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                grafico_geral.addValores();
-                grafico_predicao.addValores();
-                grafico_diagnostico.addValores();
-                grafico_correcao.addValores();
-                
+                tagErroPred = cliente.readTag(nivelT1) - cliente.readTag(predT1);
+
+                grafico_geral.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalCorrigido), cliente.readTag(tensaoBomba), cliente.readTag(tipoFalha));
+                //grafico_predicao.addValores(cliente.readTag(tensaoBomba), cliente.readTag(nivelT1), cliente.readTag(predT1), tagErroPred);
+                //grafico_diagnostico.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalReal), cliente.readTag(sinalEstimado), cliente.readTag(tipoFalha));
+                //grafico_correcao.addValores(cliente.readTag(falhasFiltradas), cliente.readTag(sinalCorrigido), cliente.readTag(nivelT1));
+
                 atualizarGrafico();
             }
         };
@@ -665,6 +692,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_monitorar.setVisible(false);
         painel_graficos.setVisible(false);
         painel_monitorar.setVisible(false);
+
     }//GEN-LAST:event_botao_configActionPerformed
 
     private void botao_monitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_monitorarActionPerformed
@@ -737,30 +765,53 @@ public class Tela_Inicial extends javax.swing.JFrame {
         graficoDial.repaint();
     }
 
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public void CadastrarMinhasTags() {
+        nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
+        predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
+        tensaoBomba = new OpcItem("TENSAO.CT_VAL_1", true, "");
+        falhasFiltradas = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
+        sinalEstimado = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
+        sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
+        sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
+        tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
 
-            public void run() {
-                new Tela_Inicial().setVisible(true);
-            }
-        });
+        lista.add(nivelT1);
+        lista.add(predT1);
+        lista.add(tensaoBomba);
+        lista.add(falhasFiltradas);
+        lista.add(sinalEstimado);
+        lista.add(sinalReal);
+        lista.add(sinalCorrigido);
+        lista.add(tipoFalha);
+
+        cliente.cadastrarTags(lista);
+        lista_tagsOPC.setListData(cliente.ListarTags());
     }
+
+//    public static void main(String args[]) {
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Windows".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//
+//            public void run() {
+//                new Tela_Inicial().setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra_T1;
     private javax.swing.JButton botao_carregarArq;
@@ -783,6 +834,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -797,6 +849,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -804,6 +857,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JList lista_tagsOPC;
     private javax.swing.JTabbedPane painelAba_Graficos;
     private javax.swing.JTabbedPane painelAba_config;
     private javax.swing.JPanel painel_AbaCorrecao;

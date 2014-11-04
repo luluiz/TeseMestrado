@@ -1,8 +1,5 @@
 package IHM;
 
-import javafish.clients.opc.JEasyOpc;
-import javafish.clients.opc.JOpc;
-import javafish.clients.opc.exception.*;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import OPC.ClienteOPC;
@@ -13,9 +10,8 @@ import OPC.ClienteOPC;
  */
 public class Tela_Conexao extends javax.swing.JFrame {
 
-    private JEasyOpc jopc;
-    private ClienteOPC cliente = new ClienteOPC();
-    private JComboBox<String> lista = new JComboBox<String>();
+    private final ClienteOPC cliente = new ClienteOPC();
+    private final JComboBox<String> lista = new JComboBox<>();
 
     public Tela_Conexao() {
         initComponents();
@@ -175,26 +171,19 @@ public class Tela_Conexao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botao_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_conectarActionPerformed
-        JOpc.coInitialize();
-        jopc = new JEasyOpc(campo_host.getText(), lista_servidores.getSelectedItem().toString(), campo_nomeCliente.getText());
-
-        try {
-            jopc.connect();
-            System.out.println("JOPC Conectado!");
-            JOptionPane.showMessageDialog(rootPane, "Connected!", "", 1);
-            new Tela_Inicial().setVisible(true);
-        } catch (ConnectivityException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Error in connection.", "ERROR", 0);
-        }
+        cliente.conectar(campo_host.getText(), lista_servidores.getSelectedItem().toString());
+        System.out.println("JOPC Conectado!");
+        JOptionPane.showMessageDialog(rootPane, "Connected!", "", 1);
+        new Tela_Inicial(cliente).setVisible(true);
     }//GEN-LAST:event_botao_conectarActionPerformed
 
     private void botao_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_cancelarActionPerformed
-        JOpc.coUninitialize();
+        cliente.desconectar();
         this.dispose();
     }//GEN-LAST:event_botao_cancelarActionPerformed
 
     private void botao_desconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_desconectarActionPerformed
-        JOpc.coUninitialize();
+        cliente.desconectar();
         JOptionPane.showMessageDialog(rootPane, "Disconnected!", "", 1);
     }//GEN-LAST:event_botao_desconectarActionPerformed
 

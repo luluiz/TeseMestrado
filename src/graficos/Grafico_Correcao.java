@@ -70,13 +70,19 @@ public class Grafico_Correcao extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    public void addValores() {
+    public void addValoresRand() {
         double p1 = -30 + (30 - (-30)) * Math.random();
         double p2 = 0 + (7 - 0) * Math.random();
 
         collection1.getSeries(0).add(new Millisecond(), p1);
         collection2.getSeries(0).add(new Millisecond(), p2);
         collection2.getSeries(1).add(new Millisecond(), p2 * 0.5);
+    }
+
+    public void addValores(double falhasFiltradas, double sinalCorrigido, double sinalComFalhas) {
+        collection1.getSeries(0).add(new Millisecond(), falhasFiltradas);
+        collection1.getSeries(1).add(new Millisecond(), sinalCorrigido);
+        collection1.getSeries(1).add(new Millisecond(), sinalComFalhas);
     }
 
     public static void main(final String[] args) {

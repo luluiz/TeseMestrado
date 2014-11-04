@@ -14,6 +14,7 @@ public class TesteOPC {
 
         JOpc.coInitialize();
         JEasyOpc jopc = new JEasyOpc("localhost", "Smar.DfiOleServer.0", "JOPC_Cliente");
+        TesteClienteOPC opc = new TesteClienteOPC("localhost");
 
         OpcItem item1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
         OpcItem item2 = new OpcItem("TENSAO.CT_VAL_1", true, "");
@@ -42,20 +43,18 @@ public class TesteOPC {
 
         OpcGroup response = jopc.synchReadGroup(group);
         String valor = response.getItems().get(0).toString();
-
+        System.out.println("Valor: " + valor);
         String[] array = valor.split(";");
 
         System.out.println(array[2].toString().trim() + "\n" + array[6].toString().trim());
 
         try {
-            item2.setValue(new Variant(1.5));
+            item2.setValue(new Variant(0));
             jopc.synchWriteItem(group, item2);
         } catch (SynchWriteException ex) {
             Logger.getLogger(TesteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-        
         JOpc.coUninitialize();
     }
 }

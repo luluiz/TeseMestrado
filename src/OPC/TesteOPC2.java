@@ -1,7 +1,8 @@
 package OPC;
 
-import javafish.clients.opc.exception.ComponentNotFoundException;
-import javafish.clients.opc.exception.SynchReadException;
+import java.util.ArrayList;
+import javafish.clients.opc.component.OpcGroup;
+import javafish.clients.opc.component.OpcItem;
 
 /**
  *
@@ -9,36 +10,41 @@ import javafish.clients.opc.exception.SynchReadException;
  */
 public class TesteOPC2 {
 
-    public static void main(String[] args) throws InterruptedException, ComponentNotFoundException, SynchReadException {
+    public static void main(String[] args) {
         ClienteOPC cliente = new ClienteOPC("localhost");
-        
-        //OpcItem item1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
-        //OpcItem item2 = new OpcItem("TENSAO.CT_VAL_1", true, "");
-//
-//        OpcGroup group = new OpcGroup("MeuGrupo", true, 500, 0.0f);
-//
-//        group.addItem(item1);
-//        group.addItem(item2);
- //       ArrayList<OpcItem> listTags = null;
-//        listTags.addAll();
-//        listTags.add(item2);
-        //cliente.cadastrarTags(listTags);
+        OpcItem item;
+        cliente.conectar("Smar.DfiOleServer.0");
 
-        //cliente.conectar("localhost", "Smar.DfiOleServer.0");
-        
-        String[] s = cliente.getAllServers("localhost");
-        System.out.println("Servidores: " + s[0]);
-        
-        //ArrayList<OpcItem> tags = new ArrayList<OpcItem>();
-//        tags.add(item1);
-  //      tags.add(item2);
+        OpcItem nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
+        OpcItem predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
+        OpcItem tensaoBomba = new OpcItem("TENSAO.CT_VAL_1", true, "");
+        OpcItem falhasFiltradas = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
+        OpcItem sinalEstimado = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
+        OpcItem sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
+        OpcItem sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
+        OpcItem tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
 
-    //    cliente.cadastrarTags(tags);
+        ArrayList<OpcItem> lista = new ArrayList<>();
+        lista.add(nivelT1);
+        lista.add(predT1);
+        lista.add(tensaoBomba);
+        lista.add(falhasFiltradas);
+        lista.add(sinalEstimado);
+        lista.add(sinalReal);
+        lista.add(sinalCorrigido);
+        lista.add(tipoFalha);
 
-      //  ArrayList<OpcItem> tagsCadastradas = cliente.getTagsCadastradas();
-        //cliente.writeTag(item2, 4.0);
-      //  ArrayList<String> x = cliente.getItemsName();
-     //   System.out.println(tagsCadastradas);
-        //System.out.println(x.get(0));
+        cliente.cadastrarTags(lista);
+
+        double x = cliente.readTag(nivelT1);
+        System.out.println(x);
+
+        cliente.writeTag(tensaoBomba, 0);
+
+        for (int i = 0; i < cliente.ListarTags().length; i++) {
+            System.out.println(cliente.ListarTags()[i]);
+        }
+
+        cliente.desconectar();
     }
 }

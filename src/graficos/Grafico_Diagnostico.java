@@ -85,7 +85,7 @@ public class Grafico_Diagnostico extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    public void addValores() {
+    public void addValoresRand() {
         double p1 = 0 + (30 - 0) * Math.random();
         double p2 = -30 + (30 - (-30)) * Math.random();
         double p3 = 1 + (4 - 1) * Math.random();
@@ -95,6 +95,14 @@ public class Grafico_Diagnostico extends ApplicationFrame {
         collection2.getSeries(0).add(new Millisecond(), p2);
         collection2.getSeries(1).add(new Millisecond(), p2 * 0.4);
         collection3.getSeries(0).add(new Millisecond(), p3);
+    }
+
+    public void addValores(double nivelT1, double predT1, double sinalReal, double sinalEstimado, double tipoFalha) {
+        collection1.getSeries(0).add(new Millisecond(), nivelT1);
+        collection1.getSeries(1).add(new Millisecond(), predT1);
+        collection1.getSeries(0).add(new Millisecond(), sinalReal);
+        collection1.getSeries(1).add(new Millisecond(), sinalEstimado);
+        collection1.getSeries(0).add(new Millisecond(), tipoFalha);
     }
 
     public static void main(final String[] args) {

@@ -22,22 +22,23 @@ import javafish.clients.opc.variant.Variant;
  *
  * @author Luiz
  */
-public class ClienteOPC {
+public class TesteClienteOPC {
 
     private JOpcBrowser browser;
     private JOpc servidorOPC;
     private String ip;
     private boolean conectado = false;
     private HandlerOPCTree handler;
-    OpcGroup group = new OpcGroup("MeuGrupo", true, 100, 0.0f);
+    OpcGroup group = new OpcGroup("UDUGROUP", true, 100, 0.0f);
+    double conversao = 4092;
 
-    public ClienteOPC() {
+    public TesteClienteOPC() {
         JOpcBrowser.coInitialize();
         JOpc.coInitialize();
         ip = null;
     }
 
-    public ClienteOPC(String ip) {
+    public TesteClienteOPC(String ip) {
         this(); //construtor padrao
         this.ip = ip;
     }
@@ -97,9 +98,8 @@ public class ClienteOPC {
 
         try {
             //inicializar o servidorOPC e o browser
-            System.out.println("Servidor: " + servidor);
             browser = new JOpcBrowser(ip, servidor, "OPCBrowser1");
-            servidorOPC = new JOpc(ip, servidor, "JOPC");
+            servidorOPC = new JOpc(ip, servidor, "OPC1");
 
             browser.connect();
             servidorOPC.connect();
@@ -112,7 +112,7 @@ public class ClienteOPC {
             handler.resetTree();
 
         } catch (ComponentNotFoundException | UnableAddGroupException | ConnectivityException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -135,6 +135,7 @@ public class ClienteOPC {
      * @return Retorna a arvore montada.
      */
     public OPCTree getOPCTree() {
+
         if (handler.getTree() == null) {
             handler.populaArvore();
         }
@@ -182,7 +183,7 @@ public class ClienteOPC {
                 try {
                     group.addItem(tag);
                 } catch (ComponentNotFoundException ex) {
-                    Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -190,7 +191,7 @@ public class ClienteOPC {
             servidorOPC.registerGroups();
 
         } catch (UnableAddGroupException | UnableAddItemException | ComponentNotFoundException | UnableRemoveGroupException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -227,11 +228,19 @@ public class ClienteOPC {
      */
     public synchronized double readTag(OpcItem tag) {
         try {
+            synchronized (this) {
+                try {
+                    this.wait(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             OpcItem responseItem = servidorOPC.synchReadItem(group, tag);
-            return Double.parseDouble(responseItem.getValue().toString());
+            return (Double.parseDouble(responseItem.getValue().toString()) / conversao) * 100;
 
         } catch (ComponentNotFoundException | SynchReadException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1; //Erro de leitura
@@ -245,16 +254,24 @@ public class ClienteOPC {
      */
     public void writeTag(OpcItem tag, double novoValor) {
         try {
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(ClienteOPC2.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+//            synchronized (this) {
+//                try {
+//                    this.wait(100);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 //            }
-            tag.setValue(new Variant(novoValor));
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            tag.setValue(new Variant(novoValor * conversao));
             servidorOPC.synchWriteItem(group, tag);
 
         } catch (ComponentNotFoundException | SynchWriteException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TesteClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -262,7 +279,7 @@ public class ClienteOPC {
         return servidorOPC;
     }
 
-    public String getItemName(OpcItem tag) {
+    public static String getItemName(OpcItem tag) {
         if (tag == null) {
             return null;
         } else {
@@ -279,15 +296,5 @@ public class ClienteOPC {
 
     public boolean isArvoreMontada() {
         return handler.getTree() != null;
-    }
-
-    public String[] ListarTags() {
-        String[] array = getTagsCadastradas().toString().split(",");
-        String[] listaTags = new String[array.length];
-                
-        for (int i = 0; i < array.length; i++) {
-            listaTags[i] = array[i].split(";")[2].split("=")[1].trim();
-        }
-        return listaTags;
     }
 }
