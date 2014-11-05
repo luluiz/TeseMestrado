@@ -36,7 +36,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.cliente = cliente;
         setExtendedState(MAXIMIZED_BOTH);
-        CadastrarMinhasTags();
+        CadastrarMinhasTags2();
         inicializarGraficos();
         atualizarGrafico();
     }
@@ -669,9 +669,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 tagErroPred = cliente.readTag(nivelT1) - cliente.readTag(predT1);
 
                 grafico_geral.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalCorrigido), cliente.readTag(tensaoBomba), cliente.readTag(tipoFalha));
-                //grafico_predicao.addValores(cliente.readTag(tensaoBomba), cliente.readTag(nivelT1), cliente.readTag(predT1), tagErroPred);
-                //grafico_diagnostico.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalReal), cliente.readTag(sinalEstimado), cliente.readTag(tipoFalha));
-                //grafico_correcao.addValores(cliente.readTag(falhasFiltradas), cliente.readTag(sinalCorrigido), cliente.readTag(nivelT1));
+                grafico_predicao.addValores(cliente.readTag(tensaoBomba), cliente.readTag(nivelT1), cliente.readTag(predT1), tagErroPred);
+                grafico_diagnostico.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalReal), cliente.readTag(sinalEstimado), cliente.readTag(tipoFalha));
+                grafico_correcao.addValores(cliente.readTag(falhasFiltradas), cliente.readTag(sinalCorrigido), cliente.readTag(nivelT1));
 
                 atualizarGrafico();
             }
@@ -766,26 +766,57 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }
 
     public void CadastrarMinhasTags() {
-        nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
-        predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
-        tensaoBomba = new OpcItem("TENSAO.CT_VAL_1", true, "");
-        falhasFiltradas = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
-        sinalEstimado = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
-        sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
-        sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
-        tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
+        try {
+            nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
+            predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
+            tensaoBomba = new OpcItem("TENSAO.CT_VAL_1", true, "");
+            falhasFiltradas = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
+            sinalEstimado = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
+            sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
+            sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
+            tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
 
-        lista.add(nivelT1);
-        lista.add(predT1);
-        lista.add(tensaoBomba);
-        lista.add(falhasFiltradas);
-        lista.add(sinalEstimado);
-        lista.add(sinalReal);
-        lista.add(sinalCorrigido);
-        lista.add(tipoFalha);
+            lista.add(nivelT1);
+            lista.add(predT1);
+            lista.add(tensaoBomba);
+            lista.add(falhasFiltradas);
+            lista.add(sinalEstimado);
+            lista.add(sinalReal);
+            lista.add(sinalCorrigido);
+            lista.add(tipoFalha);
 
-        cliente.cadastrarTags(lista);
-        lista_tagsOPC.setListData(cliente.ListarTags());
+            cliente.cadastrarTags(lista);
+            lista_tagsOPC.setListData(cliente.ListarTags());
+        } catch (Exception e) {
+            System.out.println("Erro ao CadastrarMinhasTags()");
+        }
+    }
+
+    public void CadastrarMinhasTags2() {
+        try {
+            nivelT1 = new OpcItem("Random.AI_TANQUE1.OUT.VALUE", true, "");
+            predT1 = new OpcItem("Random.ns1.OUT.VALUE", true, "");
+            tensaoBomba = new OpcItem("Random.TENSAO.CT_VAL_1", true, "");
+            falhasFiltradas = new OpcItem("Random.SOMADOR_A.OUT.VALUE", true, "");
+            sinalEstimado = new OpcItem("Random.SINAL_ESTIMADO.OUT.VALUE", true, "");
+            sinalReal = new OpcItem("Random.SINAL_REAL.OUT.VALUE", true, "");
+            sinalCorrigido = new OpcItem("Random.SOMADOR_B.OUT.VALUE", true, "");
+            tipoFalha = new OpcItem("Random.DIVISOR.OUT.VALUE", true, "");
+
+            lista.add(nivelT1);
+            lista.add(predT1);
+            lista.add(tensaoBomba);
+            lista.add(falhasFiltradas);
+            lista.add(sinalEstimado);
+            lista.add(sinalReal);
+            lista.add(sinalCorrigido);
+            lista.add(tipoFalha);
+
+            cliente.cadastrarTags(lista);
+            lista_tagsOPC.setListData(cliente.ListarTags());
+        } catch (Exception e) {
+            System.out.println("Erro ao CadastrarMinhasTags()");
+        }
     }
 
 //    public static void main(String args[]) {

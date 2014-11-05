@@ -190,7 +190,7 @@ public class ClienteOPC {
             servidorOPC.registerGroups();
 
         } catch (UnableAddGroupException | UnableAddItemException | ComponentNotFoundException | UnableRemoveGroupException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao cadastrarTags() \n" + ex);
         }
     }
 
@@ -231,7 +231,7 @@ public class ClienteOPC {
             return Double.parseDouble(responseItem.getValue().toString());
 
         } catch (ComponentNotFoundException | SynchReadException ex) {
-            Logger.getLogger(ClienteOPC.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro em readTag()\n" + ex);
         }
 
         return -1; //Erro de leitura
@@ -284,7 +284,7 @@ public class ClienteOPC {
     public String[] ListarTags() {
         String[] array = getTagsCadastradas().toString().split(",");
         String[] listaTags = new String[array.length];
-                
+
         for (int i = 0; i < array.length; i++) {
             listaTags[i] = array[i].split(";")[2].split("=")[1].trim();
         }

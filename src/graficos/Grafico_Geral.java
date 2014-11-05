@@ -16,6 +16,7 @@ import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -52,7 +53,7 @@ public class Grafico_Geral extends ApplicationFrame {
         // Collection 1
         NumberAxis rangeAxis1 = new NumberAxis("Nível (cm)");
         rangeAxis1.setAutoRangeIncludesZero(false);
-        rangeAxis1.setRange(0.0, 30.0);
+//        rangeAxis1.setRange(0.0, 30.0);
         XYPlot subplot = new XYPlot(collection1, null, rangeAxis1, new StandardXYItemRenderer());
         subplot.setBackgroundPaint(cinza1);
         subplot.setDomainGridlinePaint(Color.BLACK);
@@ -62,7 +63,7 @@ public class Grafico_Geral extends ApplicationFrame {
         // Collection 2
         NumberAxis rangeAxis2 = new NumberAxis("Tensão (V)");
         rangeAxis2.setAutoRangeIncludesZero(false);
-        rangeAxis2.setRange(0.0, 7.0);
+//        rangeAxis2.setRange(0.0, 7.0);
         XYPlot subplot2 = new XYPlot(collection2, null, rangeAxis2, new StandardXYItemRenderer());
         subplot2.setBackgroundPaint(cinza1);
         subplot2.setDomainGridlinePaint(Color.BLACK);
@@ -72,7 +73,7 @@ public class Grafico_Geral extends ApplicationFrame {
         // Collection 3
         NumberAxis rangeAxis3 = new NumberAxis("Tipo da Falha");
         rangeAxis3.setAutoRangeIncludesZero(false);
-        rangeAxis3.setRange(1.0, 4.0);
+//        rangeAxis3.setRange(1.0, 4.0);
         XYPlot subplot3 = new XYPlot(collection3, null, rangeAxis3, new StandardXYItemRenderer());
         subplot3.setBackgroundPaint(cinza1);
         subplot3.setDomainGridlinePaint(Color.BLACK);
@@ -101,13 +102,21 @@ public class Grafico_Geral extends ApplicationFrame {
     }
 
     public void addValores(double nivelT1, double predT1, double sinalCorrigido, double tensaoBomba, double tipoFalha) {
-        collection1.getSeries(0).add(new Millisecond(), nivelT1);
-        collection1.getSeries(1).add(new Millisecond(), predT1);
-        collection1.getSeries(2).add(new Millisecond(), sinalCorrigido);
-        collection1.getSeries(0).add(new Millisecond(), tensaoBomba);
-        collection1.getSeries(0).add(new Millisecond(), tipoFalha);
+//        System.out.println("nivelT1: " + nivelT1);
+//        System.out.println("predT1: " + predT1);
+//        System.out.println("sinalCorrigido: " + sinalCorrigido);
+//        System.out.println("tensaoBomba: " + tensaoBomba);
+//        System.out.println("tipoFalha: " + tipoFalha);
+        Millisecond time = new Millisecond();
+
+        collection1.getSeries(0).addOrUpdate(time, nivelT1);
+        collection1.getSeries(1).addOrUpdate(time, predT1);
+        collection1.getSeries(2).addOrUpdate(time, sinalCorrigido);
+        collection2.getSeries(0).addOrUpdate(time, tensaoBomba);
+        collection3.getSeries(0).addOrUpdate(time, tipoFalha);
     }
 // http://stackoverflow.com/questions/6191070/jfreechart-seriesexception
+
     public static void main(final String[] args) {
         final Grafico_Geral demo = new Grafico_Geral("Dynamic Data Demo 3", 1020, 600);
         demo.pack();

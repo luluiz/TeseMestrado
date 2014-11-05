@@ -98,11 +98,12 @@ public class Grafico_Diagnostico extends ApplicationFrame {
     }
 
     public void addValores(double nivelT1, double predT1, double sinalReal, double sinalEstimado, double tipoFalha) {
-        collection1.getSeries(0).add(new Millisecond(), nivelT1);
-        collection1.getSeries(1).add(new Millisecond(), predT1);
-        collection1.getSeries(0).add(new Millisecond(), sinalReal);
-        collection1.getSeries(1).add(new Millisecond(), sinalEstimado);
-        collection1.getSeries(0).add(new Millisecond(), tipoFalha);
+        Millisecond time = new Millisecond();
+        collection1.getSeries(0).add(time, nivelT1);
+        collection1.getSeries(1).add(time, predT1);
+        collection2.getSeries(0).add(time, sinalReal);
+        collection2.getSeries(1).add(time, sinalEstimado);
+        collection3.getSeries(0).add(time, tipoFalha);
     }
 
     public static void main(final String[] args) {

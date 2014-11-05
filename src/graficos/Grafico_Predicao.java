@@ -95,10 +95,11 @@ public class Grafico_Predicao extends ApplicationFrame {
     }
 
     public void addValores(double tensaoBomba, double nivelT1, double predT1, double erroPredicao) {
-        collection1.getSeries(0).add(new Millisecond(), tensaoBomba);
-        collection1.getSeries(0).add(new Millisecond(), nivelT1);
-        collection1.getSeries(1).add(new Millisecond(), predT1);
-        collection1.getSeries(0).add(new Millisecond(), erroPredicao);
+        Millisecond time = new Millisecond();
+        collection1.getSeries(0).add(time, tensaoBomba);
+        collection2.getSeries(0).add(time, nivelT1);
+        collection2.getSeries(1).add(time, predT1);
+        collection3.getSeries(0).add(time, erroPredicao);
     }
 
     public static void main(final String[] args) {
