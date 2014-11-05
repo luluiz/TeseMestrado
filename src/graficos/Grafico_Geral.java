@@ -97,6 +97,7 @@ public class Grafico_Geral extends ApplicationFrame {
         collection3.getSeries(0).add(new Millisecond(), p3);
     }
 
+// http://stackoverflow.com/questions/6191070/jfreechart-seriesexception
     public void addValores(double nivelT1, double predT1, double sinalCorrigido, double tensaoBomba, double tipoFalha) {
 //        System.out.println("nivelT1: " + nivelT1);
 //        System.out.println("predT1: " + predT1);
@@ -111,7 +112,6 @@ public class Grafico_Geral extends ApplicationFrame {
         collection2.getSeries(0).addOrUpdate(time, tensaoBomba);
         collection3.getSeries(0).addOrUpdate(time, tipoFalha);
     }
-// http://stackoverflow.com/questions/6191070/jfreechart-seriesexception
 
     public static void main(final String[] args) {
         final Grafico_Geral demo = new Grafico_Geral("Dynamic Data Demo 3", 1020, 600);
