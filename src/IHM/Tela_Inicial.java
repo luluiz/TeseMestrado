@@ -7,6 +7,7 @@ import graficos.Controle_Grafico_Dial;
 import graficos.Grafico_Correcao;
 import graficos.Grafico_Diagnostico;
 import graficos.Grafico_Predicao;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,9 +37,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.cliente = cliente;
         setExtendedState(MAXIMIZED_BOTH);
-        CadastrarMinhasTags2();
+        cadastrarMinhasTags2();
         inicializarGraficos();
         atualizarGrafico();
+        atualizarDadosAbaConfig();
     }
 
     @SuppressWarnings("unchecked")
@@ -50,7 +52,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         botao_graficos = new javax.swing.JButton();
         botao_config = new javax.swing.JButton();
         botao_monitorar = new javax.swing.JButton();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        painel_camadas = new javax.swing.JLayeredPane();
         painel_graficos = new javax.swing.JPanel();
         painelAba_Graficos = new javax.swing.JTabbedPane();
         painel_AbaGeral = new javax.swing.JPanel();
@@ -61,16 +63,17 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painelAba_config = new javax.swing.JTabbedPane();
         painel_ComOPC = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        label_statusOPC = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        label_hostOPC = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        label_svOPC = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        label_clienteOPC = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lista_tagsOPC = new javax.swing.JList();
         jLabel20 = new javax.swing.JLabel();
+        botao_cadastrarNovaTag = new javax.swing.JButton();
         painel_RNA = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         campo_enderecoArq = new javax.swing.JTextField();
@@ -241,59 +244,65 @@ public class Tela_Inicial extends javax.swing.JFrame {
             .addComponent(painelAba_Graficos)
         );
 
-        jLayeredPane1.add(painel_graficos);
+        painel_camadas.add(painel_graficos);
         painel_graficos.setBounds(0, 0, 554, 448);
 
         painel_config.setBorder(javax.swing.BorderFactory.createTitledBorder("Configurações"));
 
         jLabel1.setText("Status: ");
 
-        jLabel2.setText("Desconectado.");
+        label_statusOPC.setText("Desconectado.");
 
         jLabel3.setText("Host:");
 
-        jLabel4.setText("127.0.0.1");
+        label_hostOPC.setText("127.0.0.1");
 
         jLabel5.setText("ID do Servidor:");
 
-        jLabel6.setText("Smar.DfiOleServer.0");
+        label_svOPC.setText("Smar.DfiOleServer.0");
 
         jLabel7.setText("Nome do Cliente:");
 
-        jLabel8.setText("JOPC");
+        label_clienteOPC.setText("JOPC");
 
         jScrollPane2.setViewportView(lista_tagsOPC);
 
         jLabel20.setText("Lista de Tags Cadastradas:");
 
+        botao_cadastrarNovaTag.setText("Cadastrar Nova Tag");
+
         javax.swing.GroupLayout painel_ComOPCLayout = new javax.swing.GroupLayout(painel_ComOPC);
         painel_ComOPC.setLayout(painel_ComOPCLayout);
         painel_ComOPCLayout.setHorizontalGroup(
             painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_ComOPCLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_ComOPCLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_ComOPCLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)))
                     .addGroup(painel_ComOPCLayout.createSequentialGroup()
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
+                            .addComponent(label_svOPC)
+                            .addComponent(label_clienteOPC)))
+                    .addGroup(painel_ComOPCLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painel_ComOPCLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label_hostOPC))
+                            .addGroup(painel_ComOPCLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(label_statusOPC)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(jLabel20)
+                    .addComponent(botao_cadastrarNovaTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painel_ComOPCLayout.setVerticalGroup(
@@ -302,32 +311,33 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(label_statusOPC)
                     .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_ComOPCLayout.createSequentialGroup()
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(label_hostOPC))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(label_svOPC))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(0, 274, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                            .addComponent(label_clienteOPC)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botao_cadastrarNovaTag)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelAba_config.addTab("Comunicação OPC", painel_ComOPC);
 
         jLabel19.setText("Arquivo:");
 
-        botao_carregarArq.setText("Carregar");
+        botao_carregarArq.setText("Carregar Arq.");
         botao_carregarArq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_carregarArqActionPerformed(evt);
@@ -421,7 +431,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane1.add(painel_config);
+        painel_camadas.add(painel_config);
         painel_config.setBounds(0, 0, 554, 448);
 
         painel_monitorar.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitorar"));
@@ -605,7 +615,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane1.add(painel_monitorar);
+        painel_camadas.add(painel_monitorar);
         painel_monitorar.setBounds(0, 0, 554, 448);
 
         javax.swing.GroupLayout painel_inicialLayout = new javax.swing.GroupLayout(painel_inicial);
@@ -615,7 +625,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             .addGroup(painel_inicialLayout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addComponent(painel_camadas, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painel_inicialLayout.setVerticalGroup(
@@ -623,7 +633,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
             .addGroup(painel_inicialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLayeredPane1)
+                .addComponent(painel_camadas)
                 .addContainerGap())
         );
 
@@ -681,9 +691,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botao_graficosActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        painel_config.setSize(jLayeredPane1.getSize());
-        painel_monitorar.setSize(jLayeredPane1.getSize());
-        painel_graficos.setSize(jLayeredPane1.getSize());
+        painel_config.setSize(painel_camadas.getSize());
+        painel_monitorar.setSize(painel_camadas.getSize());
+        painel_graficos.setSize(painel_camadas.getSize());
         atualizarGrafico();
     }//GEN-LAST:event_formComponentResized
 
@@ -765,7 +775,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         graficoDial.repaint();
     }
 
-    public void CadastrarMinhasTags() {
+    public void cadastrarMinhasTags() {
         try {
             nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
             predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
@@ -792,7 +802,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         }
     }
 
-    public void CadastrarMinhasTags2() {
+    public void cadastrarMinhasTags2() {
         try {
             nivelT1 = new OpcItem("Random.AI_TANQUE1.OUT.VALUE", true, "");
             predT1 = new OpcItem("Random.ns1.OUT.VALUE", true, "");
@@ -817,6 +827,18 @@ public class Tela_Inicial extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Erro ao CadastrarMinhasTags()");
         }
+    }
+
+    public void atualizarDadosAbaConfig() {
+        if (cliente.isConected()) {
+            label_statusOPC.setText("Conectado");
+        } else {
+            label_statusOPC.setText("Desconectado");
+            label_statusOPC.setForeground(Color.RED);
+        }
+        label_hostOPC.setText(cliente.getIp());
+        label_svOPC.setText(cliente.getServidor());
+        label_clienteOPC.setText(cliente.getNomeCliente());
     }
 
 //    public static void main(String args[]) {
@@ -845,6 +867,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra_T1;
+    private javax.swing.JButton botao_cadastrarNovaTag;
     private javax.swing.JButton botao_carregarArq;
     private javax.swing.JButton botao_config;
     private javax.swing.JButton botao_graficos;
@@ -864,16 +887,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -888,6 +906,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel label_clienteOPC;
+    private javax.swing.JLabel label_hostOPC;
+    private javax.swing.JLabel label_statusOPC;
+    private javax.swing.JLabel label_svOPC;
     private javax.swing.JList lista_tagsOPC;
     private javax.swing.JTabbedPane painelAba_Graficos;
     private javax.swing.JTabbedPane painelAba_config;
@@ -898,6 +920,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel painel_ComOPC;
     private javax.swing.JPanel painel_RNA;
     private javax.swing.JPanel painel_barraT1;
+    private javax.swing.JLayeredPane painel_camadas;
     private javax.swing.JPanel painel_config;
     private javax.swing.JPanel painel_dialTensao;
     private javax.swing.JPanel painel_graficos;

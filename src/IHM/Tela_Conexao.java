@@ -171,7 +171,7 @@ public class Tela_Conexao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botao_conectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_conectarActionPerformed
-        cliente.conectar(campo_host.getText(), lista_servidores.getSelectedItem().toString());
+        cliente.conectar(campo_host.getText(), lista_servidores.getSelectedItem().toString(), campo_nomeCliente.getText());
         System.out.println("JOPC Conectado!");
         JOptionPane.showMessageDialog(rootPane, "Connected!", "", 1);
         new Tela_Inicial(cliente).setVisible(true);

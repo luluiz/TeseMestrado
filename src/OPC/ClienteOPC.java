@@ -27,6 +27,8 @@ public class ClienteOPC {
     private JOpcBrowser browser;
     private JOpc servidorOPC;
     private String ip;
+    private String servidor;
+    private String nomeCliente = "JOPC";
     private boolean conectado = false;
     private HandlerOPCTree handler;
     OpcGroup group = new OpcGroup("MeuGrupo", true, 100, 0.0f);
@@ -68,12 +70,14 @@ public class ClienteOPC {
      * @param ip IP do servidor.
      * @param servidor Nome do servidor OPC.
      */
-    public void conectar(String ip, String servidor) {
+    public void conectar(String ip, String servidor, String nomeCliente) {
         if (isConected()) {
             return;
         }
         String ipBackUp = this.ip;
         this.ip = ip;
+        this.servidor = servidor;
+        this.nomeCliente = nomeCliente;
         try {
             conectar(servidor);
         } catch (Exception ex) {
@@ -99,7 +103,7 @@ public class ClienteOPC {
             //inicializar o servidorOPC e o browser
             System.out.println("Servidor: " + servidor);
             browser = new JOpcBrowser(ip, servidor, "OPCBrowser1");
-            servidorOPC = new JOpc(ip, servidor, "JOPC");
+            servidorOPC = new JOpc(ip, servidor, nomeCliente);
 
             browser.connect();
             servidorOPC.connect();
@@ -290,4 +294,17 @@ public class ClienteOPC {
         }
         return listaTags;
     }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
 }
