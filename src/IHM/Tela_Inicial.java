@@ -33,7 +33,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private ArrayList<OpcItem> lista = new ArrayList<>();
     private OpcItem nivelT1, predT1, tensaoBomba, falhasFiltradas, sinalEstimado, sinalReal, sinalCorrigido, tipoFalha, EntComFalhasStatus, EntComFalhas;
     private double tagErroPred;
-    ClienteOPC clienteSim = new ClienteOPC();
+    private ClienteOPC clienteSim = new ClienteOPC();
+    private boolean flag = false;
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
@@ -862,9 +863,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
     // Falha Zero, Falha Fundo de Escala, Falha de Deriva, Sem Falha
     private void botao_simularFalhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_simularFalhasActionPerformed
         if (botao_simularFalhas.isSelected()) {
-            clienteSim.conectar(cliente.getIp(), cliente.getServidor(), "ClienteSimulacao");
-            clienteSim.cadastrarTags(lista);
             botao_simularFalhas.setText("PARAR Simulação de Falhas");
+            if (!flag) { // primeira vez que entra?
+                clienteSim.conectar(cliente.getIp(), cliente.getServidor(), "ClienteSimulacao");
+                clienteSim.cadastrarTags(lista);
+            }
 
             // Valor 8 = MODE_BLK em AUTO
             clienteSim.writeTag(EntComFalhasStatus, 8);
@@ -889,13 +892,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
             };
             t2 = new Timer(100, action);
             t2.start();
+            flag = true;
         } else {
             botao_simularFalhas.setText("Simular Falhas");
             System.out.println(simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
             t2.stop();
             // Valor 128 = MODE_BLK em OOS
             clienteSim.writeTag(EntComFalhasStatus, 128);
-            clienteSim.desconectar();
+
         }
     }//GEN-LAST:event_botao_simularFalhasActionPerformed
 
