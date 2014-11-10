@@ -24,13 +24,12 @@ public class Grafico_Predicao extends ApplicationFrame {
     final private TimeSeriesCollection collection1 = new TimeSeriesCollection();
     final private TimeSeriesCollection collection2 = new TimeSeriesCollection();
     final private TimeSeriesCollection collection3 = new TimeSeriesCollection();
-
+    private final Render render = new Render();
     final private TimeSeries tensaoBomba = new TimeSeries("Tensão da Bomba", Millisecond.class);
     final private TimeSeries nivelT1 = new TimeSeries("Nível T1", Millisecond.class);
     final private TimeSeries predT1 = new TimeSeries("Predição Nível T1", Millisecond.class);
     final private TimeSeries erroPredicao = new TimeSeries("Erro de Predição", Millisecond.class);
 
-    final private Color cinza1 = new Color(215, 215, 215);
 
     public Grafico_Predicao(final String title, int x, int y) {
         super(title);
@@ -49,9 +48,10 @@ public class Grafico_Predicao extends ApplicationFrame {
         rangeAxis1.setAutoRangeIncludesZero(false);
         rangeAxis1.setRange(0.0, 7.0);
         XYPlot subplot = new XYPlot(collection1, null, rangeAxis1, new StandardXYItemRenderer());
-        subplot.setBackgroundPaint(cinza1);
+        subplot.setBackgroundPaint(Color.WHITE);
         subplot.setDomainGridlinePaint(Color.BLACK);
         subplot.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot, render.amarelo1);
         plot.add(subplot);
 
         // Collection 2
@@ -59,9 +59,10 @@ public class Grafico_Predicao extends ApplicationFrame {
         rangeAxis2.setAutoRangeIncludesZero(false);
         rangeAxis2.setRange(0.0, 30.0);
         XYPlot subplot2 = new XYPlot(collection2, null, rangeAxis2, new StandardXYItemRenderer());
-        subplot2.setBackgroundPaint(cinza1);
+        subplot2.setBackgroundPaint(Color.WHITE);
         subplot2.setDomainGridlinePaint(Color.BLACK);
         subplot2.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot2, Color.BLUE, Color.red);
         plot.add(subplot2);
 
         // Collection 3
@@ -69,9 +70,10 @@ public class Grafico_Predicao extends ApplicationFrame {
         rangeAxis3.setAutoRangeIncludesZero(false);
         rangeAxis3.setRange(-3.0, 3.0);
         XYPlot subplot3 = new XYPlot(collection3, null, rangeAxis3, new StandardXYItemRenderer());
-        subplot3.setBackgroundPaint(cinza1);
+        subplot3.setBackgroundPaint(Color.WHITE);
         subplot3.setDomainGridlinePaint(Color.BLACK);
         subplot3.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot, render.verde1);
         plot.add(subplot3);
 
         final ValueAxis axis = plot.getDomainAxis();

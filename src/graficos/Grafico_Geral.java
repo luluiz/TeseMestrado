@@ -24,14 +24,12 @@ public class Grafico_Geral extends ApplicationFrame {
     final private TimeSeriesCollection collection1 = new TimeSeriesCollection();
     final private TimeSeriesCollection collection2 = new TimeSeriesCollection();
     final private TimeSeriesCollection collection3 = new TimeSeriesCollection();
-
+    private final Render render = new Render();
     final private TimeSeries nivelT1 = new TimeSeries("Nível T1", Millisecond.class);
     final private TimeSeries predT1 = new TimeSeries("Predição Nível T1", Millisecond.class);
     final private TimeSeries nivelCorrigido = new TimeSeries("Sinal do Nível do Tanque Corrigido", Millisecond.class);
     final private TimeSeries tensaoBomba = new TimeSeries("Tensão da Bomba", Millisecond.class);
     final private TimeSeries tipoFalha = new TimeSeries("Diagnóstoco do Tipo de Falha", Millisecond.class);
-
-    final private Color cinza1 = new Color(215, 215, 215);
 
     public Grafico_Geral(final String title, int x, int y) {
         super(title);
@@ -49,31 +47,34 @@ public class Grafico_Geral extends ApplicationFrame {
         // Collection 1
         NumberAxis rangeAxis1 = new NumberAxis("Nível (cm)");
         rangeAxis1.setAutoRangeIncludesZero(false);
-//        rangeAxis1.setRange(0.0, 30.0);
+        rangeAxis1.setRange(0.0, 30.0);
         XYPlot subplot = new XYPlot(collection1, null, rangeAxis1, new StandardXYItemRenderer());
-        subplot.setBackgroundPaint(cinza1);
+        subplot.setBackgroundPaint(Color.WHITE);
         subplot.setDomainGridlinePaint(Color.BLACK);
         subplot.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot, Color.BLUE, Color.RED, render.verde1);
         plot.add(subplot);
 
         // Collection 2
         NumberAxis rangeAxis2 = new NumberAxis("Tensão (V)");
         rangeAxis2.setAutoRangeIncludesZero(false);
-//        rangeAxis2.setRange(0.0, 7.0);
+        rangeAxis2.setRange(0.0, 7.0);
         XYPlot subplot2 = new XYPlot(collection2, null, rangeAxis2, new StandardXYItemRenderer());
-        subplot2.setBackgroundPaint(cinza1);
+        subplot2.setBackgroundPaint(Color.WHITE);
         subplot2.setDomainGridlinePaint(Color.BLACK);
         subplot2.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot2, render.amarelo1);
         plot.add(subplot2);
 
         // Collection 3
         NumberAxis rangeAxis3 = new NumberAxis("Tipo da Falha");
         rangeAxis3.setAutoRangeIncludesZero(false);
-//        rangeAxis3.setRange(1.0, 4.0);
+        rangeAxis3.setRange(1.0, 4.0);
         XYPlot subplot3 = new XYPlot(collection3, null, rangeAxis3, new StandardXYItemRenderer());
-        subplot3.setBackgroundPaint(cinza1);
+        subplot3.setBackgroundPaint(Color.WHITE);
         subplot3.setDomainGridlinePaint(Color.BLACK);
         subplot3.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot3, Color.BLACK);
         plot.add(subplot3);
 
         final ValueAxis axis = plot.getDomainAxis();
@@ -97,13 +98,7 @@ public class Grafico_Geral extends ApplicationFrame {
         collection3.getSeries(0).add(new Millisecond(), p3);
     }
 
-// http://stackoverflow.com/questions/6191070/jfreechart-seriesexception
     public void addValores(double nivelT1, double predT1, double sinalCorrigido, double tensaoBomba, double tipoFalha) {
-//        System.out.println("nivelT1: " + nivelT1);
-//        System.out.println("predT1: " + predT1);
-//        System.out.println("sinalCorrigido: " + sinalCorrigido);
-//        System.out.println("tensaoBomba: " + tensaoBomba);
-//        System.out.println("tipoFalha: " + tipoFalha);
         Millisecond time = new Millisecond();
 
         collection1.getSeries(0).addOrUpdate(time, nivelT1);

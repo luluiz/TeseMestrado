@@ -23,12 +23,10 @@ public class Grafico_Correcao extends ApplicationFrame {
 
     final private TimeSeriesCollection collection1 = new TimeSeriesCollection();
     final private TimeSeriesCollection collection2 = new TimeSeriesCollection();
-
+    private final Render render = new Render();
     final private TimeSeries falhasFiltradas = new TimeSeries("Falhas Filtradas", Millisecond.class);
     final private TimeSeries nivelCorrigido = new TimeSeries("Sinal do Nível do Tanque Corrigido", Millisecond.class);
     final private TimeSeries sinalComFalhas = new TimeSeries("Sinal com Falhas (Nível T1)", Millisecond.class);
-
-    final private Color cinza1 = new Color(215, 215, 215);
 
     public Grafico_Correcao(final String title, int x, int y) {
         super(title);
@@ -46,9 +44,10 @@ public class Grafico_Correcao extends ApplicationFrame {
         rangeAxis1.setAutoRangeIncludesZero(false);
         rangeAxis1.setRange(-30.0, 30.0);
         XYPlot subplot = new XYPlot(collection1, null, rangeAxis1, new StandardXYItemRenderer());
-        subplot.setBackgroundPaint(cinza1);
+        subplot.setBackgroundPaint(Color.WHITE);
         subplot.setDomainGridlinePaint(Color.BLACK);
         subplot.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot, Color.MAGENTA);
         plot.add(subplot);
 
         // Collection 2
@@ -56,9 +55,10 @@ public class Grafico_Correcao extends ApplicationFrame {
         rangeAxis2.setAutoRangeIncludesZero(false);
         rangeAxis2.setRange(0.0, 30.0);
         XYPlot subplot2 = new XYPlot(collection2, null, rangeAxis2, new StandardXYItemRenderer());
-        subplot2.setBackgroundPaint(cinza1);
+        subplot2.setBackgroundPaint(Color.WHITE);
         subplot2.setDomainGridlinePaint(Color.BLACK);
         subplot2.setRangeGridlinePaint(Color.BLACK);
+        render.Render(subplot2, render.verde1, Color.BLUE);
         plot.add(subplot2);
 
         final ValueAxis axis = plot.getDomainAxis();

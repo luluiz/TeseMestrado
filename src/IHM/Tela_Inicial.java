@@ -37,10 +37,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.cliente = cliente;
         setExtendedState(MAXIMIZED_BOTH);
-        cadastrarMinhasTags2();
+        cadastrarMinhasTags();
         inicializarGraficos();
         atualizarGrafico();
         atualizarDadosAbaConfig();
+        botao_graficosActionPerformed(null);
     }
 
     @SuppressWarnings("unchecked")
