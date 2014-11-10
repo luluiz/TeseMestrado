@@ -81,9 +81,9 @@ public class Grafico_Correcao extends ApplicationFrame {
 
     public void addValores(double falhasFiltradas, double sinalCorrigido, double sinalComFalhas) {
         Millisecond time = new Millisecond();
-        collection1.getSeries(0).add(time, falhasFiltradas);
-        collection2.getSeries(0).add(time, sinalCorrigido);
-        collection2.getSeries(1).add(time, sinalComFalhas);
+        collection1.getSeries(0).addOrUpdate(time, falhasFiltradas);
+        collection2.getSeries(0).addOrUpdate(time, sinalCorrigido);
+        collection2.getSeries(1).addOrUpdate(time, sinalComFalhas);
     }
 
     public static void main(final String[] args) {

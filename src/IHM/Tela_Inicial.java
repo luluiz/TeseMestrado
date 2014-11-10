@@ -2,6 +2,7 @@ package IHM;
 
 //import graficos.Controle_Grafico;
 import OPC.ClienteOPC;
+import SimularFalhas.SimularFalhas;
 import graficos.Grafico_Geral;
 import graficos.Controle_Grafico_Dial;
 import graficos.Grafico_Correcao;
@@ -25,12 +26,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private Grafico_Diagnostico grafico_diagnostico;
     private Grafico_Predicao grafico_predicao;
     private Controle_Grafico_Dial graficoDial;
-    private Timer t;
+    private SimularFalhas simularFalhas = new SimularFalhas();
+    private Timer t, t2;
     private double i = 0.0;
     private ClienteOPC cliente;
     private ArrayList<OpcItem> lista = new ArrayList<>();
-    private OpcItem nivelT1, predT1, tensaoBomba, falhasFiltradas, sinalEstimado, sinalReal, sinalCorrigido, tipoFalha;
+    private OpcItem nivelT1, predT1, tensaoBomba, falhasFiltradas, sinalEstimado, sinalReal, sinalCorrigido, tipoFalha, EntComFalhasStatus, EntComFalhas;
     private double tagErroPred;
+    ClienteOPC clienteSim = new ClienteOPC();
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
@@ -93,18 +96,34 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         painel_dialTensao = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        painel_monitor = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        campo_nivelT1 = new javax.swing.JTextField();
+        campo_predT1 = new javax.swing.JTextField();
+        campo_diag = new javax.swing.JTextField();
+        campo_tipoFalha = new javax.swing.JTextField();
+        campo_nivelCorrigido = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        campo_tensaoEscrita = new javax.swing.JTextField();
+        botao_aplicarTensao = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        lista_tipoFalha = new javax.swing.JComboBox();
+        botao_simularFalhas = new javax.swing.JToggleButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        campo_tensao = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -437,6 +456,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         painel_monitorar.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitorar"));
 
+        painel_barraT1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         barra_T1.setBackground(new java.awt.Color(255, 255, 255));
         barra_T1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         barra_T1.setForeground(new java.awt.Color(0, 153, 255));
@@ -497,6 +518,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        painel_dialTensao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout painel_dialTensaoLayout = new javax.swing.GroupLayout(painel_dialTensao);
         painel_dialTensao.setLayout(painel_dialTensaoLayout);
         painel_dialTensaoLayout.setHorizontalGroup(
@@ -507,6 +530,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
             painel_dialTensaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 231, Short.MAX_VALUE)
         );
+
+        painel_monitor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Nível T1:");
@@ -525,69 +550,170 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jTextField1.setEnabled(false);
+        campo_nivelT1.setEnabled(false);
 
-        jTextField2.setEnabled(false);
+        campo_predT1.setEnabled(false);
 
-        jTextField3.setEnabled(false);
+        campo_diag.setEnabled(false);
 
-        jTextField4.setEnabled(false);
+        campo_tipoFalha.setEnabled(false);
 
-        jTextField5.setEnabled(false);
+        campo_nivelCorrigido.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+        jLabel2.setText("Tensão da Bomba:");
+
+        botao_aplicarTensao.setText("Aplicar Tensão");
+        botao_aplicarTensao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_aplicarTensaoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Tipo de Falha:");
+
+        lista_tipoFalha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Falha Zero", "Falha Fundo de Escala", "Falha de Deriva", "Sem Falha" }));
+
+        botao_simularFalhas.setText("Simular Falhas");
+        botao_simularFalhas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_simularFalhasActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("V ");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Simulação de Falhas");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Tensão Escrita na Bomba");
+
+        campo_tensao.setEnabled(false);
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setText("Tensão:");
+
+        jLabel23.setText("V ");
+
+        jLabel24.setText("cm");
+
+        jLabel25.setText("cm");
+
+        jLabel26.setText("cm");
+
+        javax.swing.GroupLayout painel_monitorLayout = new javax.swing.GroupLayout(painel_monitor);
+        painel_monitor.setLayout(painel_monitorLayout);
+        painel_monitorLayout.setHorizontalGroup(
+            painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_monitorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_monitorLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lista_tipoFalha, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_monitorLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(botao_simularFalhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botao_aplicarTensao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campo_tensaoEscrita, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(campo_nivelCorrigido, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel22)
                             .addComponent(jLabel17)
                             .addComponent(jLabel16)
                             .addComponent(jLabel15)
                             .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campo_predT1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(campo_diag, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_tipoFalha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_nivelT1)
+                            .addComponent(campo_tensao))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        painel_monitorLayout.setVerticalGroup(
+            painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_monitorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(campo_tensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(campo_nivelT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))
+                        .addGap(12, 12, 12)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(campo_predT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(campo_diag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(campo_tipoFalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(campo_nivelCorrigido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26)))
+                    .addGroup(painel_monitorLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(campo_tensaoEscrita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_aplicarTensao)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lista_tipoFalha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botao_simularFalhas))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout painel_monitorarLayout = new javax.swing.GroupLayout(painel_monitorar);
@@ -597,23 +723,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
             .addGroup(painel_monitorarLayout.createSequentialGroup()
                 .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painel_monitorarLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(painel_dialTensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(painel_monitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         painel_monitorarLayout.setVerticalGroup(
             painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_monitorarLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_monitorarLayout.createSequentialGroup()
+                .addComponent(painel_monitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painel_dialTensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painel_dialTensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         painel_camadas.add(painel_monitorar);
@@ -685,9 +808,10 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 grafico_correcao.addValores(cliente.readTag(falhasFiltradas), cliente.readTag(sinalCorrigido), cliente.readTag(nivelT1));
 
                 atualizarGrafico();
+                atualizarCamposGraficosAbaMonitorar();
             }
         };
-        t = new Timer(500, action);
+        t = new Timer(100, action);
         t.start();
     }//GEN-LAST:event_botao_graficosActionPerformed
 
@@ -711,13 +835,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_monitorar.setVisible(false);
         painel_graficos.setVisible(false);
         painel_monitorar.setVisible(true);
+        campo_tensaoEscrita.setText(String.valueOf(cliente.readTag(tensaoBomba)));
 
-        ActionListener action = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        };
     }//GEN-LAST:event_botao_monitorarActionPerformed
 
     private void botao_carregarArqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_carregarArqActionPerformed
@@ -735,6 +854,50 @@ public class Tela_Inicial extends javax.swing.JFrame {
             campo_pesos.setEnabled(false);
         }
     }//GEN-LAST:event_botao_habilitarEdicaoActionPerformed
+
+    private void botao_aplicarTensaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_aplicarTensaoActionPerformed
+        cliente.writeTag(tensaoBomba, Double.parseDouble(campo_tensaoEscrita.getText()));
+    }//GEN-LAST:event_botao_aplicarTensaoActionPerformed
+
+    // Falha Zero, Falha Fundo de Escala, Falha de Deriva, Sem Falha
+    private void botao_simularFalhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_simularFalhasActionPerformed
+        if (botao_simularFalhas.isSelected()) {
+            clienteSim.conectar(cliente.getIp(), cliente.getServidor(), "ClienteSimulacao");
+            clienteSim.cadastrarTags(lista);
+            botao_simularFalhas.setText("PARAR Simulação de Falhas");
+
+            // Valor 8 = MODE_BLK em AUTO
+            clienteSim.writeTag(EntComFalhasStatus, 8);
+            ActionListener action = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    if (lista_tipoFalha.getSelectedItem() == "Falha Zero") {
+                        System.out.println(simularFalhas.tipoZero());
+                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoZero());
+                    } else if (lista_tipoFalha.getSelectedItem() == "Falha Fundo de Escala") {
+                        System.out.println(simularFalhas.tipoFundoEscala());
+                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoFundoEscala());
+                    } else if (lista_tipoFalha.getSelectedItem() == "Falha de Deriva") {
+                        System.out.println(simularFalhas.tipoDeriva(clienteSim.readTag(nivelT1)));
+                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoDeriva(clienteSim.readTag(nivelT1)));
+                    } else if (lista_tipoFalha.getSelectedItem() == "Sem Falha") {
+                        System.out.println(simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
+                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
+                    }
+                }
+            };
+            t2 = new Timer(100, action);
+            t2.start();
+        } else {
+            botao_simularFalhas.setText("Simular Falhas");
+            System.out.println(simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
+            t2.stop();
+            // Valor 128 = MODE_BLK em OOS
+            clienteSim.writeTag(EntComFalhasStatus, 128);
+            clienteSim.desconectar();
+        }
+    }//GEN-LAST:event_botao_simularFalhasActionPerformed
 
     public void inicializarGraficos() {
         grafico_geral = new Grafico_Geral("Principais Sinais do Sistema", painel_AbaGeral.getWidth(), painel_AbaGeral.getHeight());
@@ -786,6 +949,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
             sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
             sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
             tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
+            EntComFalhas = new OpcItem("Entrada_com_Falhas.CT_VAL_1", true, "");
+            EntComFalhasStatus = new OpcItem("Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
 
             lista.add(nivelT1);
             lista.add(predT1);
@@ -795,6 +960,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
             lista.add(sinalReal);
             lista.add(sinalCorrigido);
             lista.add(tipoFalha);
+            lista.add(EntComFalhas);
+            lista.add(EntComFalhasStatus);
 
             cliente.cadastrarTags(lista);
             lista_tagsOPC.setListData(cliente.ListarTags());
@@ -813,6 +980,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
             sinalReal = new OpcItem("Random.SINAL_REAL.OUT.VALUE", true, "");
             sinalCorrigido = new OpcItem("Random.SOMADOR_B.OUT.VALUE", true, "");
             tipoFalha = new OpcItem("Random.DIVISOR.OUT.VALUE", true, "");
+            EntComFalhas = new OpcItem("Random.Entrada_com_Falhas.OUT_1.VALUE", true, "");
+            EntComFalhasStatus = new OpcItem("Random.Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
 
             lista.add(nivelT1);
             lista.add(predT1);
@@ -822,6 +991,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
             lista.add(sinalReal);
             lista.add(sinalCorrigido);
             lista.add(tipoFalha);
+            lista.add(EntComFalhas);
+            lista.add(EntComFalhasStatus);
 
             cliente.cadastrarTags(lista);
             lista_tagsOPC.setListData(cliente.ListarTags());
@@ -840,6 +1011,12 @@ public class Tela_Inicial extends javax.swing.JFrame {
         label_hostOPC.setText(cliente.getIp());
         label_svOPC.setText(cliente.getServidor());
         label_clienteOPC.setText(cliente.getNomeCliente());
+    }
+
+    public void atualizarCamposGraficosAbaMonitorar() {
+        campo_tensao.setText(String.valueOf(cliente.readTag(tensaoBomba)));
+        campo_nivelT1.setText(String.valueOf(cliente.readTag(nivelT1)));
+        campo_nivelCorrigido.setText(String.valueOf(cliente.readTag(sinalCorrigido)));
     }
 
 //    public static void main(String args[]) {
@@ -868,14 +1045,23 @@ public class Tela_Inicial extends javax.swing.JFrame {
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra_T1;
+    private javax.swing.JButton botao_aplicarTensao;
     private javax.swing.JButton botao_cadastrarNovaTag;
     private javax.swing.JButton botao_carregarArq;
     private javax.swing.JButton botao_config;
     private javax.swing.JButton botao_graficos;
     private javax.swing.JToggleButton botao_habilitarEdicao;
     private javax.swing.JButton botao_monitorar;
+    private javax.swing.JToggleButton botao_simularFalhas;
+    private javax.swing.JTextField campo_diag;
     public javax.swing.JTextField campo_enderecoArq;
+    private javax.swing.JTextField campo_nivelCorrigido;
+    private javax.swing.JTextField campo_nivelT1;
     public javax.swing.JTextArea campo_pesos;
+    private javax.swing.JTextField campo_predT1;
+    private javax.swing.JTextField campo_tensao;
+    private javax.swing.JTextField campo_tensaoEscrita;
+    private javax.swing.JTextField campo_tipoFalha;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -888,30 +1074,36 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel label_clienteOPC;
     private javax.swing.JLabel label_hostOPC;
     private javax.swing.JLabel label_statusOPC;
     private javax.swing.JLabel label_svOPC;
     private javax.swing.JList lista_tagsOPC;
+    private javax.swing.JComboBox lista_tipoFalha;
     private javax.swing.JTabbedPane painelAba_Graficos;
     private javax.swing.JTabbedPane painelAba_config;
     private javax.swing.JPanel painel_AbaCorrecao;
@@ -926,6 +1118,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel painel_dialTensao;
     private javax.swing.JPanel painel_graficos;
     private javax.swing.JPanel painel_inicial;
+    private javax.swing.JPanel painel_monitor;
     private javax.swing.JPanel painel_monitorar;
     // End of variables declaration//GEN-END:variables
 }
