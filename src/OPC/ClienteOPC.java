@@ -31,7 +31,7 @@ public class ClienteOPC {
     private String nomeCliente = "JOPC";
     private boolean conectado = false;
     private HandlerOPCTree handler;
-    OpcGroup group = new OpcGroup("MeuGrupo", true, 100, 0.0f);
+    OpcGroup group = new OpcGroup("MeuGrupo", true, 10, 0.0f);
 
     public ClienteOPC() {
         JOpcBrowser.coInitialize();

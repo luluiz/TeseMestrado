@@ -73,12 +73,12 @@ public class Grafico_Predicao extends ApplicationFrame {
         subplot3.setBackgroundPaint(Color.WHITE);
         subplot3.setDomainGridlinePaint(Color.BLACK);
         subplot3.setRangeGridlinePaint(Color.BLACK);
-        render.Render(subplot, render.verde1);
+        render.Render(subplot3, render.verde1);
         plot.add(subplot3);
 
         final ValueAxis axis = plot.getDomainAxis();
         axis.setAutoRange(true);
-        axis.setFixedAutoRange(120000.0);  // 120 seconds
+        axis.setFixedAutoRange(240000.0);  // 120 seconds
 
         final ChartPanel chartPanel = new ChartPanel(chart, true, true, true, false, true);
         chartPanel.setPreferredSize(new java.awt.Dimension(x, y));

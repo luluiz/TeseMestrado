@@ -31,7 +31,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private double i = 0.0;
     private ClienteOPC cliente;
     private ArrayList<OpcItem> lista = new ArrayList<>();
-    private OpcItem nivelT1, predT1, tensaoBomba, falhasFiltradas, sinalEstimado, sinalReal, sinalCorrigido, tipoFalha, EntComFalhasStatus, EntComFalhas;
+    private OpcItem nivelT1_OPC, predT1_OPC, tensaoBomba_OPC, falhasFiltradas_OPC, sinalEstimado_OPC, sinalReal_OPC, sinalCorrigido_OPC, tipoFalha_OPC, EntComFalhasStatus_OPC, EntComFalhas_OPC;
+    private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas;
     private double tagErroPred;
     private ClienteOPC clienteSim = new ClienteOPC();
     private boolean flag = false;
@@ -43,7 +44,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         cadastrarMinhasTags();
         inicializarGraficos();
-        atualizarGrafico();
+        setPropriedadesDoGrafico();
         atualizarDadosAbaConfig();
         botao_graficosActionPerformed(null);
     }
@@ -572,7 +573,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         jLabel6.setText("Tipo de Falha:");
 
-        lista_tipoFalha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Falha Zero", "Falha Fundo de Escala", "Falha de Deriva", "Sem Falha" }));
+        lista_tipoFalha.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Falha Zero", "Falha Fundo de Escala", "Falha de Deriva", "Sem Falha", "Falhas em Sequência" }));
 
         botao_simularFalhas.setText("Simular Falhas");
         botao_simularFalhas.addActionListener(new java.awt.event.ActionListener() {
@@ -796,19 +797,19 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_graficos.setVisible(true);
         painel_monitorar.setVisible(false);
         //inicializarGrafico();
-        atualizarGrafico();
+        setPropriedadesDoGrafico();
 
         ActionListener action = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tagErroPred = cliente.readTag(nivelT1) - cliente.readTag(predT1);
+                leituraTagsOPC();
 
-                grafico_geral.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalCorrigido), cliente.readTag(tensaoBomba), cliente.readTag(tipoFalha));
-                grafico_predicao.addValores(cliente.readTag(tensaoBomba), cliente.readTag(nivelT1), cliente.readTag(predT1), tagErroPred);
-                grafico_diagnostico.addValores(cliente.readTag(nivelT1), cliente.readTag(predT1), cliente.readTag(sinalReal), cliente.readTag(sinalEstimado), cliente.readTag(tipoFalha));
-                grafico_correcao.addValores(cliente.readTag(falhasFiltradas), cliente.readTag(sinalCorrigido), cliente.readTag(nivelT1));
+                grafico_geral.addValores(nivelT1, predT1, sinalCorrigido, tensaoBomba, tipoFalha);
+                grafico_predicao.addValores(tensaoBomba, nivelT1, predT1, tagErroPred);
+                grafico_diagnostico.addValores(nivelT1, predT1, sinalReal, sinalEstimado, tipoFalha);
+                grafico_correcao.addValores(falhasFiltradas, sinalCorrigido, nivelT1);
 
-                atualizarGrafico();
+                setPropriedadesDoGrafico();
                 atualizarCamposGraficosAbaMonitorar();
             }
         };
@@ -820,7 +821,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_config.setSize(painel_camadas.getSize());
         painel_monitorar.setSize(painel_camadas.getSize());
         painel_graficos.setSize(painel_camadas.getSize());
-        atualizarGrafico();
+        setPropriedadesDoGrafico();
     }//GEN-LAST:event_formComponentResized
 
     private void botao_configActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_configActionPerformed
@@ -836,7 +837,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_monitorar.setVisible(false);
         painel_graficos.setVisible(false);
         painel_monitorar.setVisible(true);
-        campo_tensaoEscrita.setText(String.valueOf(cliente.readTag(tensaoBomba)));
+        campo_tensaoEscrita.setText(String.valueOf(tensaoBomba));
 
     }//GEN-LAST:event_botao_monitorarActionPerformed
 
@@ -857,7 +858,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botao_habilitarEdicaoActionPerformed
 
     private void botao_aplicarTensaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_aplicarTensaoActionPerformed
-        cliente.writeTag(tensaoBomba, Double.parseDouble(campo_tensaoEscrita.getText()));
+        cliente.writeTag(tensaoBomba_OPC, Double.parseDouble(campo_tensaoEscrita.getText()));
     }//GEN-LAST:event_botao_aplicarTensaoActionPerformed
 
     // Falha Zero, Falha Fundo de Escala, Falha de Deriva, Sem Falha
@@ -870,35 +871,23 @@ public class Tela_Inicial extends javax.swing.JFrame {
             }
 
             // Valor 8 = MODE_BLK em AUTO
-            clienteSim.writeTag(EntComFalhasStatus, 8);
+            clienteSim.writeTag(EntComFalhasStatus_OPC, 8);
             ActionListener action = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    if (lista_tipoFalha.getSelectedItem() == "Falha Zero") {
-                        System.out.println(simularFalhas.tipoZero());
-                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoZero());
-                    } else if (lista_tipoFalha.getSelectedItem() == "Falha Fundo de Escala") {
-                        System.out.println(simularFalhas.tipoFundoEscala());
-                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoFundoEscala());
-                    } else if (lista_tipoFalha.getSelectedItem() == "Falha de Deriva") {
-                        System.out.println(simularFalhas.tipoDeriva(clienteSim.readTag(nivelT1)));
-                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoDeriva(clienteSim.readTag(nivelT1)));
-                    } else if (lista_tipoFalha.getSelectedItem() == "Sem Falha") {
-                        System.out.println(simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
-                        clienteSim.writeTag(EntComFalhas, simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
-                    }
+                    tipoFalha();
                 }
             };
-            t2 = new Timer(100, action);
+            t2 = new Timer(1000, action);
             t2.start();
+//            new Thread(tSimulacao).start();
             flag = true;
         } else {
             botao_simularFalhas.setText("Simular Falhas");
-            System.out.println(simularFalhas.tipoSemFalha(clienteSim.readTag(nivelT1)));
+            System.out.println(simularFalhas.tipoSemFalha(nivelT1));
             t2.stop();
             // Valor 128 = MODE_BLK em OOS
-            clienteSim.writeTag(EntComFalhasStatus, 128);
+            clienteSim.writeTag(EntComFalhasStatus_OPC, 128);
 
         }
     }//GEN-LAST:event_botao_simularFalhasActionPerformed
@@ -926,7 +915,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_dialTensao.add(graficoDial.getContentPane());
     }
 
-    public void atualizarGrafico() {
+    public void setPropriedadesDoGrafico() {
         grafico_geral.setSize(painel_AbaGeral.getSize());
         grafico_geral.repaint();
 
@@ -945,27 +934,27 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     public void cadastrarMinhasTags() {
         try {
-            nivelT1 = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
-            predT1 = new OpcItem("ns1.OUT.VALUE", true, "");
-            tensaoBomba = new OpcItem("TENSAO.CT_VAL_1", true, "");
-            falhasFiltradas = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
-            sinalEstimado = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
-            sinalReal = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
-            sinalCorrigido = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
-            tipoFalha = new OpcItem("DIVISOR.OUT.VALUE", true, "");
-            EntComFalhas = new OpcItem("Entrada_com_Falhas.CT_VAL_1", true, "");
-            EntComFalhasStatus = new OpcItem("Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
+            nivelT1_OPC = new OpcItem("AI_TANQUE1.OUT.VALUE", true, "");
+            predT1_OPC = new OpcItem("ns1.OUT.VALUE", true, "");
+            tensaoBomba_OPC = new OpcItem("TENSAO.CT_VAL_1", true, "");
+            falhasFiltradas_OPC = new OpcItem("SOMADOR_A.OUT.VALUE", true, "");
+            sinalEstimado_OPC = new OpcItem("SINAL_ESTIMADO.OUT.VALUE", true, "");
+            sinalReal_OPC = new OpcItem("SINAL_REAL.OUT.VALUE", true, "");
+            sinalCorrigido_OPC = new OpcItem("SOMADOR_B.OUT.VALUE", true, "");
+            tipoFalha_OPC = new OpcItem("DIVISOR.OUT.VALUE", true, "");
+            EntComFalhas_OPC = new OpcItem("Entrada_com_Falhas.CT_VAL_1", true, "");
+            EntComFalhasStatus_OPC = new OpcItem("Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
 
-            lista.add(nivelT1);
-            lista.add(predT1);
-            lista.add(tensaoBomba);
-            lista.add(falhasFiltradas);
-            lista.add(sinalEstimado);
-            lista.add(sinalReal);
-            lista.add(sinalCorrigido);
-            lista.add(tipoFalha);
-            lista.add(EntComFalhas);
-            lista.add(EntComFalhasStatus);
+            lista.add(nivelT1_OPC);
+            lista.add(predT1_OPC);
+            lista.add(tensaoBomba_OPC);
+            lista.add(falhasFiltradas_OPC);
+            lista.add(sinalEstimado_OPC);
+            lista.add(sinalReal_OPC);
+            lista.add(sinalCorrigido_OPC);
+            lista.add(tipoFalha_OPC);
+            lista.add(EntComFalhas_OPC);
+            lista.add(EntComFalhasStatus_OPC);
 
             cliente.cadastrarTags(lista);
             lista_tagsOPC.setListData(cliente.ListarTags());
@@ -976,33 +965,47 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     public void cadastrarMinhasTags2() {
         try {
-            nivelT1 = new OpcItem("Random.AI_TANQUE1.OUT.VALUE", true, "");
-            predT1 = new OpcItem("Random.ns1.OUT.VALUE", true, "");
-            tensaoBomba = new OpcItem("Random.TENSAO.CT_VAL_1", true, "");
-            falhasFiltradas = new OpcItem("Random.SOMADOR_A.OUT.VALUE", true, "");
-            sinalEstimado = new OpcItem("Random.SINAL_ESTIMADO.OUT.VALUE", true, "");
-            sinalReal = new OpcItem("Random.SINAL_REAL.OUT.VALUE", true, "");
-            sinalCorrigido = new OpcItem("Random.SOMADOR_B.OUT.VALUE", true, "");
-            tipoFalha = new OpcItem("Random.DIVISOR.OUT.VALUE", true, "");
-            EntComFalhas = new OpcItem("Random.Entrada_com_Falhas.OUT_1.VALUE", true, "");
-            EntComFalhasStatus = new OpcItem("Random.Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
+            nivelT1_OPC = new OpcItem("Random.AI_TANQUE1.OUT.VALUE", true, "");
+            predT1_OPC = new OpcItem("Random.ns1.OUT.VALUE", true, "");
+            tensaoBomba_OPC = new OpcItem("Random.TENSAO.CT_VAL_1", true, "");
+            falhasFiltradas_OPC = new OpcItem("Random.SOMADOR_A.OUT.VALUE", true, "");
+            sinalEstimado_OPC = new OpcItem("Random.SINAL_ESTIMADO.OUT.VALUE", true, "");
+            sinalReal_OPC = new OpcItem("Random.SINAL_REAL.OUT.VALUE", true, "");
+            sinalCorrigido_OPC = new OpcItem("Random.SOMADOR_B.OUT.VALUE", true, "");
+            tipoFalha_OPC = new OpcItem("Random.DIVISOR.OUT.VALUE", true, "");
+            EntComFalhas_OPC = new OpcItem("Random.Entrada_com_Falhas.OUT_1.VALUE", true, "");
+            EntComFalhasStatus_OPC = new OpcItem("Random.Entrada_com_Falhas.MODE_BLK.TARGET", true, "");
 
-            lista.add(nivelT1);
-            lista.add(predT1);
-            lista.add(tensaoBomba);
-            lista.add(falhasFiltradas);
-            lista.add(sinalEstimado);
-            lista.add(sinalReal);
-            lista.add(sinalCorrigido);
-            lista.add(tipoFalha);
-            lista.add(EntComFalhas);
-            lista.add(EntComFalhasStatus);
+            lista.add(nivelT1_OPC);
+            lista.add(predT1_OPC);
+            lista.add(tensaoBomba_OPC);
+            lista.add(falhasFiltradas_OPC);
+            lista.add(sinalEstimado_OPC);
+            lista.add(sinalReal_OPC);
+            lista.add(sinalCorrigido_OPC);
+            lista.add(tipoFalha_OPC);
+            lista.add(EntComFalhas_OPC);
+            lista.add(EntComFalhasStatus_OPC);
 
             cliente.cadastrarTags(lista);
             lista_tagsOPC.setListData(cliente.ListarTags());
         } catch (Exception e) {
             System.out.println("Erro ao CadastrarMinhasTags()");
         }
+    }
+
+    public void leituraTagsOPC() {
+        nivelT1 = cliente.readTag(nivelT1_OPC);
+        predT1 = cliente.readTag(predT1_OPC);
+        tensaoBomba = cliente.readTag(tensaoBomba_OPC);
+        sinalCorrigido = cliente.readTag(sinalCorrigido_OPC);
+        sinalEstimado = cliente.readTag(sinalEstimado_OPC);
+        sinalReal = cliente.readTag(sinalReal_OPC);
+        tipoFalha = cliente.readTag(tipoFalha_OPC);
+        entComFalhas = cliente.readTag(EntComFalhas_OPC);
+        entComFalhasStatus = cliente.readTag(EntComFalhasStatus_OPC);
+        falhasFiltradas = cliente.readTag(falhasFiltradas_OPC);
+        tagErroPred = cliente.readTag(nivelT1_OPC) - cliente.readTag(predT1_OPC);
     }
 
     public void atualizarDadosAbaConfig() {
@@ -1018,35 +1021,54 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }
 
     public void atualizarCamposGraficosAbaMonitorar() {
-        campo_tensao.setText(String.valueOf(cliente.readTag(tensaoBomba)));
-        campo_nivelT1.setText(String.valueOf(cliente.readTag(nivelT1)));
-        campo_nivelCorrigido.setText(String.valueOf(cliente.readTag(sinalCorrigido)));
+        campo_tensao.setText(String.valueOf(tensaoBomba));
+        campo_nivelT1.setText(String.valueOf(nivelT1));
+        campo_nivelCorrigido.setText(String.valueOf(sinalCorrigido));
     }
 
-//    public static void main(String args[]) {
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Windows".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//
-//            public void run() {
-//                new Tela_Inicial().setVisible(true);
-//            }
-//        });
-//    }
+    public void tipoFalha() {
+        if (lista_tipoFalha.getSelectedItem() == "Falha Zero") {
+//            System.out.println(simularFalhas.tipoZero());
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoZero());
+        } else if (lista_tipoFalha.getSelectedItem() == "Falha Fundo de Escala") {
+//            System.out.println(simularFalhas.tipoFundoEscala());
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoFundoEscala());
+        } else if (lista_tipoFalha.getSelectedItem() == "Falha de Deriva") {
+//            System.out.println(simularFalhas.tipoDeriva(cliente.readTag(nivelT1_OPC)));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoDeriva(nivelT1));
+        } else if (lista_tipoFalha.getSelectedItem() == "Sem Falha") {
+//            System.out.println(simularFalhas.tipoSemFalha(cliente.readTag(nivelT1_OPC)));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoSemFalha(nivelT1));
+        } else if (lista_tipoFalha.getSelectedItem() == "Falhas em Sequência") {
+//            System.out.println(simularFalhas.tipoFalhasEmSequencia(cliente.readTag(nivelT1_OPC)));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoFalhasEmSequencia(nivelT1));
+        }
+    }
+
+    //    public static void main(String args[]) {
+    //        try {
+    //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+    //                if ("Windows".equals(info.getName())) {
+    //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    //                    break;
+    //                }
+    //            }
+    //        } catch (ClassNotFoundException ex) {
+    //            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (InstantiationException ex) {
+    //            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (IllegalAccessException ex) {
+    //            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+    //            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    //        }
+    //        java.awt.EventQueue.invokeLater(new Runnable() {
+    //
+    //            public void run() {
+    //                new Tela_Inicial().setVisible(true);
+    //            }
+    //        });
+    //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar barra_T1;
     private javax.swing.JButton botao_aplicarTensao;

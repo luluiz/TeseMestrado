@@ -1101,11 +1101,12 @@
                     <Component class="javax.swing.JComboBox" name="lista_tipoFalha">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="4">
+                          <StringArray count="5">
                             <StringItem index="0" value="Falha Zero"/>
                             <StringItem index="1" value="Falha Fundo de Escala"/>
                             <StringItem index="2" value="Falha de Deriva"/>
                             <StringItem index="3" value="Sem Falha"/>
+                            <StringItem index="4" value="Falhas em Sequ&#xea;ncia"/>
                           </StringArray>
                         </Property>
                       </Properties>

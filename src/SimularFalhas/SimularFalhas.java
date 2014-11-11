@@ -8,27 +8,23 @@ public class SimularFalhas {
 
     private double constanteFalha = 0.02;
     private int k = 1;
+    private int x = 0;
 
     public SimularFalhas() {
     }
 
-    public SimularFalhas(int tipoFalha, double sinal) {
+    public double SimularFalhas(int tipoFalha, double sinal) {
         switch (tipoFalha) {
             case 1:
-                tipoZero();
-                break;
+                return tipoZero();
             case 2:
-                tipoFundoEscala();
-                break;
+                return tipoFundoEscala();
             case 3:
-                tipoDeriva(sinal);
-                break;
+                return tipoDeriva(sinal);
             case 4:
-                tipoSemFalha(sinal);
-                break;
+                return tipoSemFalha(sinal);
             default:
-                tipoSemFalha(sinal);
-                break;
+                return tipoSemFalha(sinal);
         }
     }
 
@@ -41,12 +37,35 @@ public class SimularFalhas {
     }
 
     public double tipoDeriva(double sinal) {
+        System.out.println("Falha de Deriva K: " + k);
         if (k == 16) {
-            k = 0;
+            k = 1;
         } else {
             k++;
         }
         return sinal * Math.exp(-constanteFalha * k);
+    }
+
+    public double tipoFalhasEmSequencia(double sinal) {
+        x++;
+        System.out.println("Falhas em Sequencia X: " + x);
+        if (x >= 30 && x <= 59) {
+            return tipoZero();
+        } else if (x >= 60 && x <= 89) {
+            return tipoSemFalha(sinal);
+        } else if (x >= 90 && x <= 119) {
+            return tipoFundoEscala();
+        } else if (x >= 120 && x <= 149) {
+            return tipoSemFalha(sinal);
+        } else if (x >= 150 && x <= 209) {
+            return tipoDeriva(sinal);
+        } else if (x >= 210 && x <= 239) {
+            return tipoSemFalha(sinal);
+        } else if (x == 240) {
+            x = 0;
+        }
+
+        return tipoSemFalha(sinal);
     }
 
     public double tipoSemFalha(double sinal) {

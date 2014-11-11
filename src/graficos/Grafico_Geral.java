@@ -79,7 +79,7 @@ public class Grafico_Geral extends ApplicationFrame {
 
         final ValueAxis axis = plot.getDomainAxis();
         axis.setAutoRange(true);
-        axis.setFixedAutoRange(120000.0);  // 120 seconds
+        axis.setFixedAutoRange(240000.0);  // 120 seconds
 
         final ChartPanel chartPanel = new ChartPanel(chart, true, true, true, false, true);
         chartPanel.setPreferredSize(new java.awt.Dimension(x, y));
