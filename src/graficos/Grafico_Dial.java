@@ -28,11 +28,11 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.GradientPaintTransformType;
 import org.jfree.ui.StandardGradientPaintTransformer;
 
-public class Controle_Grafico_Dial extends ApplicationFrame implements ChangeListener {
+public class Grafico_Dial extends ApplicationFrame implements ChangeListener {
 
     DefaultValueDataset dataset = new DefaultValueDataset(0.0D);
 
-    public Controle_Grafico_Dial(final String title, int x, int y) {
+    public Grafico_Dial(final String title, int x, int y) {
         super(title);
         JFreeChart localJFreeChart = createStandardDialChart("Bomba", "Tensão (V)", this.dataset, 0.0D, 12.0D, 1.0D, 3);
         DialPlot localDialPlot = (DialPlot) localJFreeChart.getPlot();
@@ -63,7 +63,7 @@ public class Controle_Grafico_Dial extends ApplicationFrame implements ChangeLis
 
     public static void main(final String[] args) {
         //Controle_Grafico_Dial localDialDemo1 = new Controle_Grafico_Dial("JFreeChart: DialDemo1.java");
-        Controle_Grafico_Dial localDialDemo1 = new Controle_Grafico_Dial("Teste", 640, 480);
+        Grafico_Dial localDialDemo1 = new Grafico_Dial("Teste", 640, 480);
 
         localDialDemo1.pack();
         localDialDemo1.setVisible(true);
