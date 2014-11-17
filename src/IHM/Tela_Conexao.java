@@ -39,7 +39,6 @@ public class Tela_Conexao extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OPC COM");
 
         botao_conectar.setText("Conectar");
@@ -175,6 +174,7 @@ public class Tela_Conexao extends javax.swing.JFrame {
         System.out.println("JOPC Conectado!");
         JOptionPane.showMessageDialog(rootPane, "Connected!", "", 1);
         new Tela_Inicial(cliente).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_botao_conectarActionPerformed
 
     private void botao_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_cancelarActionPerformed

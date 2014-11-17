@@ -70,7 +70,7 @@ public class Grafico_Diagnostico extends ApplicationFrame {
         // Collection 3
         NumberAxis rangeAxis3 = new NumberAxis("Tipo de Falha");
         rangeAxis3.setAutoRangeIncludesZero(false);
-        rangeAxis3.setRange(1.0, 4.0);
+        rangeAxis3.setRange(0.0, 5.0);
         XYPlot subplot3 = new XYPlot(collection3, null, rangeAxis3, new StandardXYItemRenderer());
         subplot3.setBackgroundPaint(Color.WHITE);
         subplot3.setDomainGridlinePaint(Color.BLACK);

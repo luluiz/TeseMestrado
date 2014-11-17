@@ -717,7 +717,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="painel_dialTensao" max="32767" attributes="0"/>
-                              <Component id="painel_barraT1" pref="0" max="32767" attributes="0"/>
+                              <Component id="painel_barraT1" pref="237" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

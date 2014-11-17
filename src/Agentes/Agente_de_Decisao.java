@@ -7,7 +7,7 @@ package Agentes;
 public class Agente_de_Decisao extends Ambiente {
 
     private String nome = "Agente de Decisão";
-    private boolean habilitarCorrecao = false;
+    private boolean flagFalha = false;
 
     public Agente_de_Decisao() {
     }
@@ -18,6 +18,7 @@ public class Agente_de_Decisao extends Ambiente {
         this.setTensaoBomba(tensaoBomba);
         this.setSinalCorrigido(sinalCorrigido);
         this.setTipoFalha(tipoFalha);
+        isFlagFalha();
     }
 
     public String getNome() {
@@ -28,11 +29,11 @@ public class Agente_de_Decisao extends Ambiente {
         this.nome = nome;
     }
 
-    public boolean habilitarCorrecao() {
-        if (this.getTipoFalha() != 4) {  // pode colocar entre 3.5 e 4.0
-            return habilitarCorrecao = true;
+    public boolean isFlagFalha() {
+        if (this.getTipoFalha() <= 4 && this.getTipoFalha() >= 3.5) {  // pode colocar entre 3.5 e 4.0
+            return flagFalha = true;
         } else {
-            return habilitarCorrecao = false;
+            return flagFalha = false;
         }
     }
 }

@@ -13,21 +13,6 @@ public class SimularFalhas {
     public SimularFalhas() {
     }
 
-    public double SimularFalhas(int tipoFalha, double sinal) {
-        switch (tipoFalha) {
-            case 1:
-                return tipoZero();
-            case 2:
-                return tipoFundoEscala();
-            case 3:
-                return tipoDeriva(sinal);
-            case 4:
-                return tipoSemFalha(sinal);
-            default:
-                return tipoSemFalha(sinal);
-        }
-    }
-
     public double tipoZero() {
         return 0.0;
     }

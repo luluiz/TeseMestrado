@@ -15,6 +15,14 @@ public class Ambiente {
     public Ambiente() {
     }
 
+    public Ambiente(double tensaoBomba, double nivelT1, double predT1, double sinalCorrigido, double tipoFalha) {
+        this.tensaoBomba = tensaoBomba;
+        this.nivelT1 = nivelT1;
+        this.predT1 = predT1;
+        this.sinalCorrigido = sinalCorrigido;
+        this.tipoFalha = tipoFalha;
+    }
+
     public double getTensaoBomba() {
         return tensaoBomba;
     }

@@ -7,15 +7,16 @@ package Agentes;
 public class Agente_de_Diagnostico extends Ambiente {
 
     private String nome = "Agente de Predição";
-    private double saidaAgenteDiagnostico;
+    private double tipoFalha;
+    private boolean flagFalha = false;
 
     public Agente_de_Diagnostico() {
     }
 
-    public Agente_de_Diagnostico(double tensaoBomba, double nivelT1, double saidaAgenteDiagnostico) {
+    public Agente_de_Diagnostico(double tensaoBomba, double nivelT1, double tipoFalha) {
         this.setTensaoBomba(tensaoBomba);
         this.setNivelT1(nivelT1);
-        this.saidaAgenteDiagnostico = saidaAgenteDiagnostico;
+        this.tipoFalha = tipoFalha;
     }
 
     public String getNome() {
@@ -27,11 +28,19 @@ public class Agente_de_Diagnostico extends Ambiente {
     }
 
     public double getSaidaAgenteDiagnostico() {
-        return saidaAgenteDiagnostico;
+        return tipoFalha;
     }
 
     public void setSaidaAgenteDiagnostico(double saidaAgenteDiagnostico) {
-        this.saidaAgenteDiagnostico = saidaAgenteDiagnostico;
+        this.tipoFalha = saidaAgenteDiagnostico;
+    }
+
+    public boolean isFlagFalha() {
+        return flagFalha;
+    }
+
+    public void setFlagFalha(boolean flagFalha) {
+        this.flagFalha = flagFalha;
     }
 
 }

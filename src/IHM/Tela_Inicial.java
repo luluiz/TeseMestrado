@@ -1,6 +1,11 @@
 package IHM;
 
 //import graficos.Controle_Grafico;
+import Agentes.Agente_de_Decisao;
+import Agentes.Agente_de_Diagnostico;
+import Agentes.Agente_de_Execucao;
+import Agentes.Agente_de_Predicao;
+import Agentes.Ambiente;
 import OPC.ClienteOPC;
 import SimularFalhas.SimularFalhas;
 import graficos.Grafico_Geral;
@@ -27,15 +32,21 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private Grafico_Predicao grafico_predicao;
     private Grafico_Dial grafico_dial;
     private SimularFalhas simularFalhas = new SimularFalhas();
-    private Timer t, t2;
+    private Timer threadGrafico, threadEscritaOPC;
     private double i = 0.0;
     private ClienteOPC cliente;
     private ArrayList<OpcItem> lista = new ArrayList<>();
     private OpcItem nivelT1_OPC, predT1_OPC, tensaoBomba_OPC, falhasFiltradas_OPC, sinalEstimado_OPC, sinalReal_OPC, sinalCorrigido_OPC, tipoFalha_OPC, EntComFalhasStatus_OPC, EntComFalhas_OPC;
-    private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas;
+    private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas, sinalComFalhasNivelT1;
     private double tagErroPred;
     private ClienteOPC clienteSim = new ClienteOPC();
     private boolean flag = false;
+    private boolean flagEntComFalha = false;
+    private Ambiente ambiente = new Ambiente();
+    private Agentes.Agente_de_Decisao agDecisao = new Agente_de_Decisao();
+    private Agentes.Agente_de_Diagnostico agDiagnostico = new Agente_de_Diagnostico();
+    private Agentes.Agente_de_Execucao agExecucao = new Agente_de_Execucao();
+    private Agentes.Agente_de_Predicao agPredicao = new Agente_de_Predicao();
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
@@ -46,6 +57,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         inicializarGraficos();
         setPropriedadesDoGrafico();
         atualizarDadosAbaConfig();
+        principal();
         botao_graficosActionPerformed(null);
     }
 
@@ -792,6 +804,43 @@ public class Tela_Inicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void principal() {
+        ActionListener actionGrafico = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                leituraTagsOPC();
+
+                ambiente.setNivelT1(nivelT1);
+                ambiente.setPredT1(predT1);
+                ambiente.setSinalCorrigido(sinalCorrigido);
+                ambiente.setTensaoBomba(tensaoBomba);
+                ambiente.setTipoFalha(tipoFalha);
+                agDecisao = new Agente_de_Decisao(tensaoBomba, nivelT1, predT1, sinalCorrigido, tipoFalha);
+
+                if (agDecisao.isFlagFalha()) {
+                    sinalCorrigido = 0;
+                    sinalComFalhasNivelT1 = 0;
+                    falhasFiltradas = 0;
+                }
+
+                if (tipoFalha < 1) {
+                    tipoFalha = 3;
+                }
+
+                grafico_geral.addValores(nivelT1, predT1, sinalCorrigido, tensaoBomba, tipoFalha);
+                grafico_predicao.addValores(tensaoBomba, nivelT1, predT1, tagErroPred);
+                grafico_diagnostico.addValores(nivelT1, predT1, sinalReal, sinalEstimado, tipoFalha);
+                grafico_correcao.addValores(falhasFiltradas, sinalCorrigido, sinalComFalhasNivelT1);
+
+                setPropriedadesDoGrafico();
+                atualizarCamposGraficosAbaMonitorar();
+            }
+        };
+        threadGrafico = new Timer(100, actionGrafico);
+        threadGrafico.start();
+    }
+
+
     private void botao_graficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_graficosActionPerformed
         painel_config.setVisible(false);
         painel_monitorar.setVisible(false);
@@ -799,23 +848,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_monitorar.setVisible(false);
         //inicializarGrafico();
         setPropriedadesDoGrafico();
-
-        ActionListener action = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                leituraTagsOPC();
-
-                grafico_geral.addValores(nivelT1, predT1, sinalCorrigido, tensaoBomba, tipoFalha);
-                grafico_predicao.addValores(tensaoBomba, nivelT1, predT1, tagErroPred);
-                grafico_diagnostico.addValores(nivelT1, predT1, sinalReal, sinalEstimado, tipoFalha);
-                grafico_correcao.addValores(falhasFiltradas, sinalCorrigido, nivelT1);
-
-                setPropriedadesDoGrafico();
-                atualizarCamposGraficosAbaMonitorar();
-            }
-        };
-        t = new Timer(100, action);
-        t.start();
     }//GEN-LAST:event_botao_graficosActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
@@ -879,17 +911,18 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     tipoFalha();
                 }
             };
-            t2 = new Timer(1000, action);
-            t2.start();
+            threadEscritaOPC = new Timer(1250, action);
+            threadEscritaOPC.start();
 //            new Thread(tSimulacao).start();
             flag = true;
+            flagEntComFalha = true;
         } else {
             botao_simularFalhas.setText("Simular Falhas");
             System.out.println(simularFalhas.tipoSemFalha(nivelT1));
-            t2.stop();
+            threadEscritaOPC.stop();
             // Valor 128 = MODE_BLK em OOS
             clienteSim.writeTag(EntComFalhasStatus_OPC, 128);
-
+            flagEntComFalha = false;
         }
     }//GEN-LAST:event_botao_simularFalhasActionPerformed
 
@@ -993,7 +1026,12 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }
 
     public void leituraTagsOPC() {
-        nivelT1 = cliente.readTag(nivelT1_OPC);
+        if (!flagEntComFalha) {
+            nivelT1 = cliente.readTag(nivelT1_OPC);
+        } else {
+            nivelT1 = cliente.readTag(EntComFalhas_OPC);
+            sinalComFalhasNivelT1 = nivelT1;
+        }
         predT1 = cliente.readTag(predT1_OPC);
         tensaoBomba = cliente.readTag(tensaoBomba_OPC);
         sinalCorrigido = cliente.readTag(sinalCorrigido_OPC);
@@ -1032,20 +1070,15 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     public void tipoFalha() {
         if (lista_tipoFalha.getSelectedItem() == "Falha Zero") {
-//            System.out.println(simularFalhas.tipoZero());
             clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoZero());
         } else if (lista_tipoFalha.getSelectedItem() == "Falha Fundo de Escala") {
-//            System.out.println(simularFalhas.tipoFundoEscala());
             clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoFundoEscala());
         } else if (lista_tipoFalha.getSelectedItem() == "Falha de Deriva") {
-//            System.out.println(simularFalhas.tipoDeriva(cliente.readTag(nivelT1_OPC)));
-            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoDeriva(nivelT1));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoDeriva(cliente.readTag(nivelT1_OPC)));
         } else if (lista_tipoFalha.getSelectedItem() == "Sem Falha") {
-//            System.out.println(simularFalhas.tipoSemFalha(cliente.readTag(nivelT1_OPC)));
-            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoSemFalha(nivelT1));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoSemFalha(cliente.readTag(nivelT1_OPC)));
         } else if (lista_tipoFalha.getSelectedItem() == "Falhas em Sequência") {
-//            System.out.println(simularFalhas.tipoFalhasEmSequencia(cliente.readTag(nivelT1_OPC)));
-            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoFalhasEmSequencia(nivelT1));
+            clienteSim.writeTag(EntComFalhas_OPC, simularFalhas.tipoFalhasEmSequencia(cliente.readTag(nivelT1_OPC)));
         }
     }
 
