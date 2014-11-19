@@ -1723,27 +1723,32 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_nivelT1">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_predT1">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_diag">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_tipoFalha">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_nivelCorrigido">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -1814,7 +1819,8 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_tensao">
                       <Properties>
-                        <Property name="enabled" type="boolean" value="false"/>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel22">

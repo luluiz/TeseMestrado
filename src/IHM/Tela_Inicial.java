@@ -996,15 +996,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        campo_nivelT1.setEnabled(false);
+        campo_nivelT1.setEditable(false);
+        campo_nivelT1.setDragEnabled(true);
 
-        campo_predT1.setEnabled(false);
+        campo_predT1.setEditable(false);
+        campo_predT1.setDragEnabled(true);
 
-        campo_diag.setEnabled(false);
+        campo_diag.setEditable(false);
+        campo_diag.setDragEnabled(true);
 
-        campo_tipoFalha.setEnabled(false);
+        campo_tipoFalha.setEditable(false);
+        campo_tipoFalha.setDragEnabled(true);
 
-        campo_nivelCorrigido.setEnabled(false);
+        campo_nivelCorrigido.setEditable(false);
+        campo_nivelCorrigido.setDragEnabled(true);
 
         jLabel2.setText("Tensão da Bomba:");
 
@@ -1036,7 +1041,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Tensão Escrita na Bomba");
 
-        campo_tensao.setEnabled(false);
+        campo_tensao.setEditable(false);
+        campo_tensao.setDragEnabled(true);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Tensão:");
