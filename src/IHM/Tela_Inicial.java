@@ -1,6 +1,5 @@
 package IHM;
 
-//import graficos.Controle_Grafico;
 import Agentes.Agente_de_Decisao;
 import Agentes.Agente_de_Diagnostico;
 import Agentes.Agente_de_Execucao;
@@ -31,22 +30,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private Grafico_Diagnostico grafico_diagnostico;
     private Grafico_Predicao grafico_predicao;
     private Grafico_Dial grafico_dial;
-    private SimularFalhas simularFalhas = new SimularFalhas();
+    private final SimularFalhas simularFalhas = new SimularFalhas();
     private Timer threadGrafico, threadEscritaOPC;
-    private double i = 0.0;
-    private ClienteOPC cliente;
-    private ArrayList<OpcItem> lista = new ArrayList<>();
+    private final double i = 0.0;
+    private final ClienteOPC cliente;
+    private final ClienteOPC clienteSim = new ClienteOPC();
+    private final ArrayList<OpcItem> lista = new ArrayList<>();
     private OpcItem nivelT1_OPC, predT1_OPC, tensaoBomba_OPC, falhasFiltradas_OPC, sinalEstimado_OPC, sinalReal_OPC, sinalCorrigido_OPC, tipoFalha_OPC, EntComFalhasStatus_OPC, EntComFalhas_OPC;
-    private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas, sinalComFalhasNivelT1;
-    private double erroPredT1;
-    private ClienteOPC clienteSim = new ClienteOPC();
-    private boolean flag = false;
-    private boolean flagEntComFalha = false;
-    private Ambiente ambiente = new Ambiente();
+    private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas, sinalComFalhasNivelT1, erroPredT1;
+    private boolean flag = false, flagEntComFalha = false;
+    private final Ambiente ambiente = new Ambiente();
     private Agentes.Agente_de_Decisao agDecisao = new Agente_de_Decisao();
-    private Agentes.Agente_de_Diagnostico agDiagnostico = new Agente_de_Diagnostico();
-    private Agentes.Agente_de_Execucao agExecucao = new Agente_de_Execucao();
-    private Agentes.Agente_de_Predicao agPredicao = new Agente_de_Predicao();
+    private final Agentes.Agente_de_Diagnostico agDiagnostico = new Agente_de_Diagnostico();
+    private final Agentes.Agente_de_Execucao agExecucao = new Agente_de_Execucao();
+    private final Agentes.Agente_de_Predicao agPredicao = new Agente_de_Predicao();
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
