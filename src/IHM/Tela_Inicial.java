@@ -38,7 +38,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private ArrayList<OpcItem> lista = new ArrayList<>();
     private OpcItem nivelT1_OPC, predT1_OPC, tensaoBomba_OPC, falhasFiltradas_OPC, sinalEstimado_OPC, sinalReal_OPC, sinalCorrigido_OPC, tipoFalha_OPC, EntComFalhasStatus_OPC, EntComFalhas_OPC;
     private double nivelT1, predT1, tensaoBomba, sinalCorrigido, sinalEstimado, sinalReal, tipoFalha, entComFalhas, entComFalhasStatus, falhasFiltradas, sinalComFalhasNivelT1;
-    private double tagErroPred;
+    private double erroPredT1;
     private ClienteOPC clienteSim = new ClienteOPC();
     private boolean flag = false;
     private boolean flagEntComFalha = false;
@@ -74,9 +74,62 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_graficos = new javax.swing.JPanel();
         painelAba_Graficos = new javax.swing.JTabbedPane();
         painel_AbaGeral = new javax.swing.JPanel();
+        painel_AbaGeral2 = new javax.swing.JPanel();
+        painel_AbaGeral3 = new javax.swing.JScrollPane();
+        painel_AbaGeral4 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        campo_nivelT1geral = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        campo_predT1geral = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        campo_sinalCorrigidogeral = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel29 = new javax.swing.JLabel();
+        campo_tensaoBombaGeral = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel30 = new javax.swing.JLabel();
+        campo_tipoFalhaGeral = new javax.swing.JTextField();
         painel_AbaPredicao = new javax.swing.JPanel();
+        painel_AbaPredicao2 = new javax.swing.JPanel();
+        painel_AbaPredicao3 = new javax.swing.JScrollPane();
+        painel_AbaPredicao4 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        campo_tensaoBombaPredicao = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        campo_nivelT1Predicao = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        campo_predT1Predicao = new javax.swing.JTextField();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel39 = new javax.swing.JLabel();
+        campo_erroPredicaoPredicao = new javax.swing.JTextField();
+        jSeparator8 = new javax.swing.JSeparator();
         painel_AbaDiag = new javax.swing.JPanel();
+        painel_AbaDiag2 = new javax.swing.JPanel();
+        painel_AbaDiag3 = new javax.swing.JScrollPane();
+        painel_AbaDiag4 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        campo_nivelT1Diag = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        campo_predT1Diag = new javax.swing.JTextField();
+        jLabel43 = new javax.swing.JLabel();
+        campo_sinalRealDiag = new javax.swing.JTextField();
+        jSeparator9 = new javax.swing.JSeparator();
+        jLabel44 = new javax.swing.JLabel();
+        campo_sinalEstimadoDiag = new javax.swing.JTextField();
+        jSeparator10 = new javax.swing.JSeparator();
+        jLabel45 = new javax.swing.JLabel();
+        campo_tipoFalhaDiag = new javax.swing.JTextField();
         painel_AbaCorrecao = new javax.swing.JPanel();
+        painel_AbaCorrecao2 = new javax.swing.JPanel();
+        painel_AbaCorrecao3 = new javax.swing.JScrollPane();
+        painel_AbaCorrecao4 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        campo_falhasFiltradasCorrecao = new javax.swing.JTextField();
+        jLabel48 = new javax.swing.JLabel();
+        campo_sinalCorrigidoCorrecao = new javax.swing.JTextField();
+        jSeparator11 = new javax.swing.JSeparator();
+        jLabel49 = new javax.swing.JLabel();
+        campo_sinalComFalhasCorrecao = new javax.swing.JTextField();
         painel_config = new javax.swing.JPanel();
         painelAba_config = new javax.swing.JTabbedPane();
         painel_ComOPC = new javax.swing.JPanel();
@@ -151,9 +204,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             }
         });
 
-        painel_inicial.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jToolBar1.setBorder(null);
+        jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(" "));
         jToolBar1.setFloatable(false);
         jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jToolBar1.setRollover(true);
@@ -215,54 +266,435 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         painel_graficos.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráficos"));
 
+        javax.swing.GroupLayout painel_AbaGeral2Layout = new javax.swing.GroupLayout(painel_AbaGeral2);
+        painel_AbaGeral2.setLayout(painel_AbaGeral2Layout);
+        painel_AbaGeral2Layout.setHorizontalGroup(
+            painel_AbaGeral2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
+        painel_AbaGeral2Layout.setVerticalGroup(
+            painel_AbaGeral2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        painel_AbaGeral3.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento"));
+
+        painel_AbaGeral4.setPreferredSize(new java.awt.Dimension(185, 150));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("NÍVEL DO TANQUE 1:");
+
+        campo_nivelT1geral.setEditable(false);
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setText("PREDIÇÃO DO TANQUE 1:");
+
+        campo_predT1geral.setEditable(false);
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel28.setText("SINAL CORRIGIDO:");
+
+        campo_sinalCorrigidogeral.setEditable(false);
+
+        jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel29.setText("TENSÃO DA BOMBA:");
+
+        campo_tensaoBombaGeral.setEditable(false);
+
+        jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel30.setText("TIPO DE FALHA:");
+
+        campo_tipoFalhaGeral.setEditable(false);
+
+        javax.swing.GroupLayout painel_AbaGeral4Layout = new javax.swing.GroupLayout(painel_AbaGeral4);
+        painel_AbaGeral4.setLayout(painel_AbaGeral4Layout);
+        painel_AbaGeral4Layout.setHorizontalGroup(
+            painel_AbaGeral4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaGeral4Layout.createSequentialGroup()
+                .addGroup(painel_AbaGeral4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(campo_nivelT1geral, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(campo_predT1geral, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_sinalCorrigidogeral, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_tensaoBombaGeral, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_tipoFalhaGeral, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+        painel_AbaGeral4Layout.setVerticalGroup(
+            painel_AbaGeral4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaGeral4Layout.createSequentialGroup()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_nivelT1geral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_predT1geral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sinalCorrigidogeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_tensaoBombaGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_tipoFalhaGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 84, Short.MAX_VALUE))
+        );
+
+        painel_AbaGeral3.setViewportView(painel_AbaGeral4);
+
         javax.swing.GroupLayout painel_AbaGeralLayout = new javax.swing.GroupLayout(painel_AbaGeral);
         painel_AbaGeral.setLayout(painel_AbaGeralLayout);
         painel_AbaGeralLayout.setHorizontalGroup(
             painel_AbaGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(painel_AbaGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painel_AbaGeral2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(13, 13, 13)
+                .addComponent(painel_AbaGeral3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_AbaGeralLayout.setVerticalGroup(
             painel_AbaGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_AbaGeralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_AbaGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(painel_AbaGeral3)
+                    .addComponent(painel_AbaGeral2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelAba_Graficos.addTab("Geral", painel_AbaGeral);
+
+        javax.swing.GroupLayout painel_AbaPredicao2Layout = new javax.swing.GroupLayout(painel_AbaPredicao2);
+        painel_AbaPredicao2.setLayout(painel_AbaPredicao2Layout);
+        painel_AbaPredicao2Layout.setHorizontalGroup(
+            painel_AbaPredicao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 306, Short.MAX_VALUE)
+        );
+        painel_AbaPredicao2Layout.setVerticalGroup(
+            painel_AbaPredicao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+        );
+
+        painel_AbaPredicao3.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento"));
+
+        painel_AbaPredicao4.setPreferredSize(new java.awt.Dimension(185, 150));
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel36.setText("TENSAO DA BOMBA:");
+
+        campo_tensaoBombaPredicao.setEditable(false);
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel37.setText("NÍVEL DO TANQUE 1:");
+
+        campo_nivelT1Predicao.setEditable(false);
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel38.setText("PREDIÇÃO DO TANQUE 1:");
+
+        campo_predT1Predicao.setEditable(false);
+
+        jSeparator7.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel39.setText("ERRO DE PREDIÇÃO DO TANQUE 1:");
+
+        campo_erroPredicaoPredicao.setEditable(false);
+
+        jSeparator8.setForeground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout painel_AbaPredicao4Layout = new javax.swing.GroupLayout(painel_AbaPredicao4);
+        painel_AbaPredicao4.setLayout(painel_AbaPredicao4Layout);
+        painel_AbaPredicao4Layout.setHorizontalGroup(
+            painel_AbaPredicao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaPredicao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(campo_tensaoBombaPredicao, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel37, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(campo_nivelT1Predicao, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(campo_predT1Predicao, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(campo_erroPredicaoPredicao, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING))
+            .addComponent(jLabel39)
+        );
+        painel_AbaPredicao4Layout.setVerticalGroup(
+            painel_AbaPredicao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaPredicao4Layout.createSequentialGroup()
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_tensaoBombaPredicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_nivelT1Predicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_predT1Predicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_erroPredicaoPredicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 130, Short.MAX_VALUE))
+        );
+
+        painel_AbaPredicao3.setViewportView(painel_AbaPredicao4);
 
         javax.swing.GroupLayout painel_AbaPredicaoLayout = new javax.swing.GroupLayout(painel_AbaPredicao);
         painel_AbaPredicao.setLayout(painel_AbaPredicaoLayout);
         painel_AbaPredicaoLayout.setHorizontalGroup(
             painel_AbaPredicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(painel_AbaPredicaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painel_AbaPredicao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painel_AbaPredicao3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_AbaPredicaoLayout.setVerticalGroup(
             painel_AbaPredicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(painel_AbaPredicaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_AbaPredicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painel_AbaPredicao3)
+                    .addComponent(painel_AbaPredicao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelAba_Graficos.addTab("Predição do Nível do Tanque", painel_AbaPredicao);
+
+        javax.swing.GroupLayout painel_AbaDiag2Layout = new javax.swing.GroupLayout(painel_AbaDiag2);
+        painel_AbaDiag2.setLayout(painel_AbaDiag2Layout);
+        painel_AbaDiag2Layout.setHorizontalGroup(
+            painel_AbaDiag2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 306, Short.MAX_VALUE)
+        );
+        painel_AbaDiag2Layout.setVerticalGroup(
+            painel_AbaDiag2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        painel_AbaDiag3.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento"));
+
+        painel_AbaDiag4.setPreferredSize(new java.awt.Dimension(185, 150));
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel41.setText("NÍVEL DO TANQUE 1:");
+
+        campo_nivelT1Diag.setEditable(false);
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel42.setText("PREDIÇÃO DO TANQUE 1:");
+
+        campo_predT1Diag.setEditable(false);
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel43.setText("SINAL REAL:");
+
+        campo_sinalRealDiag.setEditable(false);
+
+        jSeparator9.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel44.setText("SINAL ESTIMADO:");
+
+        campo_sinalEstimadoDiag.setEditable(false);
+
+        jSeparator10.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel45.setText("TIPO DE FALHA:");
+
+        campo_tipoFalhaDiag.setEditable(false);
+
+        javax.swing.GroupLayout painel_AbaDiag4Layout = new javax.swing.GroupLayout(painel_AbaDiag4);
+        painel_AbaDiag4.setLayout(painel_AbaDiag4Layout);
+        painel_AbaDiag4Layout.setHorizontalGroup(
+            painel_AbaDiag4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaDiag4Layout.createSequentialGroup()
+                .addGroup(painel_AbaDiag4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painel_AbaDiag4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel45, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campo_nivelT1Diag, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                        .addComponent(campo_predT1Diag, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(campo_sinalRealDiag, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(campo_tipoFalhaDiag, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(campo_sinalEstimadoDiag, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+        painel_AbaDiag4Layout.setVerticalGroup(
+            painel_AbaDiag4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaDiag4Layout.createSequentialGroup()
+                .addComponent(jLabel41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_nivelT1Diag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_predT1Diag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sinalRealDiag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sinalEstimadoDiag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_tipoFalhaDiag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 94, Short.MAX_VALUE))
+        );
+
+        painel_AbaDiag3.setViewportView(painel_AbaDiag4);
 
         javax.swing.GroupLayout painel_AbaDiagLayout = new javax.swing.GroupLayout(painel_AbaDiag);
         painel_AbaDiag.setLayout(painel_AbaDiagLayout);
         painel_AbaDiagLayout.setHorizontalGroup(
             painel_AbaDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(painel_AbaDiagLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painel_AbaDiag2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painel_AbaDiag3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_AbaDiagLayout.setVerticalGroup(
             painel_AbaDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(painel_AbaDiagLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_AbaDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painel_AbaDiag3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                    .addComponent(painel_AbaDiag2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelAba_Graficos.addTab("Detecção e Diagnóstico de Falhas", painel_AbaDiag);
+
+        javax.swing.GroupLayout painel_AbaCorrecao2Layout = new javax.swing.GroupLayout(painel_AbaCorrecao2);
+        painel_AbaCorrecao2.setLayout(painel_AbaCorrecao2Layout);
+        painel_AbaCorrecao2Layout.setHorizontalGroup(
+            painel_AbaCorrecao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 306, Short.MAX_VALUE)
+        );
+        painel_AbaCorrecao2Layout.setVerticalGroup(
+            painel_AbaCorrecao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        painel_AbaCorrecao3.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento"));
+
+        painel_AbaCorrecao4.setPreferredSize(new java.awt.Dimension(185, 150));
+
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel46.setText("FALHAS FILTRADAS:");
+
+        campo_falhasFiltradasCorrecao.setEditable(false);
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel48.setText("SINAL CORRIGIDO:");
+
+        campo_sinalCorrigidoCorrecao.setEditable(false);
+
+        jSeparator11.setForeground(new java.awt.Color(102, 102, 102));
+
+        jLabel49.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel49.setText("SINAL COM FALHAS (NÍVEL T1):");
+
+        campo_sinalComFalhasCorrecao.setEditable(false);
+
+        javax.swing.GroupLayout painel_AbaCorrecao4Layout = new javax.swing.GroupLayout(painel_AbaCorrecao4);
+        painel_AbaCorrecao4.setLayout(painel_AbaCorrecao4Layout);
+        painel_AbaCorrecao4Layout.setHorizontalGroup(
+            painel_AbaCorrecao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaCorrecao4Layout.createSequentialGroup()
+                .addGroup(painel_AbaCorrecao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel46, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(campo_falhasFiltradasCorrecao, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_sinalCorrigidoCorrecao, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator11, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_sinalComFalhasCorrecao, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+        painel_AbaCorrecao4Layout.setVerticalGroup(
+            painel_AbaCorrecao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_AbaCorrecao4Layout.createSequentialGroup()
+                .addComponent(jLabel46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_falhasFiltradasCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sinalCorrigidoCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campo_sinalComFalhasCorrecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 202, Short.MAX_VALUE))
+        );
+
+        painel_AbaCorrecao3.setViewportView(painel_AbaCorrecao4);
 
         javax.swing.GroupLayout painel_AbaCorrecaoLayout = new javax.swing.GroupLayout(painel_AbaCorrecao);
         painel_AbaCorrecao.setLayout(painel_AbaCorrecaoLayout);
         painel_AbaCorrecaoLayout.setHorizontalGroup(
             painel_AbaCorrecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(painel_AbaCorrecaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painel_AbaCorrecao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painel_AbaCorrecao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         painel_AbaCorrecaoLayout.setVerticalGroup(
             painel_AbaCorrecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGroup(painel_AbaCorrecaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painel_AbaCorrecaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painel_AbaCorrecao3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                    .addComponent(painel_AbaCorrecao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         painelAba_Graficos.addTab("Correção de Falhas", painel_AbaCorrecao);
@@ -751,7 +1183,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(painel_dialTensao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, Short.MAX_VALUE)))
         );
 
         painel_camadas.add(painel_monitorar);
@@ -762,17 +1194,19 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_inicialLayout.setHorizontalGroup(
             painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painel_inicialLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painel_camadas, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painel_camadas, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painel_inicialLayout.setVerticalGroup(
             painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
             .addGroup(painel_inicialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painel_camadas)
+                .addGroup(painel_inicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painel_camadas, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -828,12 +1262,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 }
 
                 grafico_geral.addValores(nivelT1, predT1, sinalCorrigido, tensaoBomba, tipoFalha);
-                grafico_predicao.addValores(tensaoBomba, nivelT1, predT1, tagErroPred);
+                grafico_predicao.addValores(tensaoBomba, nivelT1, predT1, erroPredT1);
                 grafico_diagnostico.addValores(nivelT1, predT1, sinalReal, sinalEstimado, tipoFalha);
                 grafico_correcao.addValores(falhasFiltradas, sinalCorrigido, sinalComFalhasNivelT1);
 
                 setPropriedadesDoGrafico();
-                atualizarCamposGraficosAbaMonitorar();
+                atualizarCamposMonitoramentoAbaMonitorar();
+                atualizarCamposGraficos();
             }
         };
         threadGrafico = new Timer(100, actionGrafico);
@@ -927,39 +1362,39 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botao_simularFalhasActionPerformed
 
     public void inicializarGraficos() {
-        grafico_geral = new Grafico_Geral("Principais Sinais do Sistema", painel_AbaGeral.getWidth(), painel_AbaGeral.getHeight());
-        grafico_predicao = new Grafico_Predicao("Gráficos da Predição do Nível do Tanque", painel_AbaPredicao.getWidth(), painel_AbaPredicao.getHeight());
-        grafico_diagnostico = new Grafico_Diagnostico("Gráficos da Detector e Diagnosticador de Falhas", painel_AbaDiag.getWidth(), painel_AbaDiag.getHeight());
-        grafico_correcao = new Grafico_Correcao("Gráficos de Correção de Falhas", painel_AbaCorrecao.getWidth(), painel_AbaCorrecao.getHeight());
+        grafico_geral = new Grafico_Geral("Principais Sinais do Sistema", painel_AbaGeral2.getWidth(), painel_AbaGeral2.getHeight());
+        grafico_predicao = new Grafico_Predicao("Gráficos da Predição do Nível do Tanque", painel_AbaPredicao2.getWidth(), painel_AbaPredicao2.getHeight());
+        grafico_diagnostico = new Grafico_Diagnostico("Gráficos da Detector e Diagnosticador de Falhas", painel_AbaDiag2.getWidth(), painel_AbaDiag2.getHeight());
+        grafico_correcao = new Grafico_Correcao("Gráficos de Correção de Falhas", painel_AbaCorrecao2.getWidth(), painel_AbaCorrecao2.getHeight());
         grafico_dial = new Grafico_Dial("Bomba", painel_dialTensao.getWidth(), painel_dialTensao.getHeight());
 
         grafico_geral.pack();
-        painel_AbaGeral.add(grafico_geral.getContentPane());
+        painel_AbaGeral2.add(grafico_geral.getContentPane());
 
         grafico_predicao.pack();
-        painel_AbaPredicao.add(grafico_predicao.getContentPane());
+        painel_AbaPredicao2.add(grafico_predicao.getContentPane());
 
         grafico_diagnostico.pack();
-        painel_AbaDiag.add(grafico_diagnostico.getContentPane());
+        painel_AbaDiag2.add(grafico_diagnostico.getContentPane());
 
         grafico_correcao.pack();
-        painel_AbaCorrecao.add(grafico_correcao.getContentPane());
+        painel_AbaCorrecao2.add(grafico_correcao.getContentPane());
 
         grafico_dial.pack();
         painel_dialTensao.add(grafico_dial.getContentPane());
     }
 
     public void setPropriedadesDoGrafico() {
-        grafico_geral.setSize(painel_AbaGeral.getSize());
+        grafico_geral.setSize(painel_AbaGeral2.getSize());
         grafico_geral.repaint();
 
-        grafico_predicao.setSize(painel_AbaPredicao.getSize());
+        grafico_predicao.setSize(painel_AbaPredicao2.getSize());
         grafico_predicao.repaint();
 
-        grafico_diagnostico.setSize(painel_AbaDiag.getSize());
+        grafico_diagnostico.setSize(painel_AbaDiag2.getSize());
         grafico_diagnostico.repaint();
 
-        grafico_correcao.setSize(painel_AbaCorrecao.getSize());
+        grafico_correcao.setSize(painel_AbaCorrecao2.getSize());
         grafico_correcao.repaint();
     }
 
@@ -1041,7 +1476,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         entComFalhas = cliente.readTag(EntComFalhas_OPC);
         entComFalhasStatus = cliente.readTag(EntComFalhasStatus_OPC);
         falhasFiltradas = cliente.readTag(falhasFiltradas_OPC);
-        tagErroPred = cliente.readTag(nivelT1_OPC) - cliente.readTag(predT1_OPC);
+        erroPredT1 = cliente.readTag(nivelT1_OPC) - cliente.readTag(predT1_OPC);
     }
 
     public void atualizarDadosAbaConfig() {
@@ -1056,7 +1491,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         label_clienteOPC.setText(cliente.getNomeCliente());
     }
 
-    public void atualizarCamposGraficosAbaMonitorar() {
+    public void atualizarCamposMonitoramentoAbaMonitorar() {
         campo_tensao.setText(String.valueOf(roundValue(tensaoBomba, 2, 0)));
         campo_nivelT1.setText(String.valueOf(roundValue(nivelT1, 2, 0)));
         campo_nivelCorrigido.setText(String.valueOf(roundValue(sinalCorrigido, 2, 0)));
@@ -1066,6 +1501,33 @@ public class Tela_Inicial extends javax.swing.JFrame {
         barra_T1.setString(String.valueOf(Math.round((nivelT1 * 100) / 30)));
         label_nivelT1.setText("Nivel Tanque 1: " + Math.round(nivelT1) + " cm");
         grafico_dial.setValorDial(tensaoBomba);
+    }
+
+    public void atualizarCamposGraficos() {
+        //  ABA GERAL
+        campo_nivelT1geral.setText(String.valueOf(roundValue(nivelT1, 2, 0)) + " cm");
+        campo_predT1geral.setText(String.valueOf(roundValue(predT1, 2, 0)) + " cm");
+        campo_sinalCorrigidogeral.setText(String.valueOf(roundValue(sinalCorrigido, 2, 0)) + " cm");
+        campo_tensaoBombaGeral.setText(String.valueOf(roundValue(tensaoBomba, 2, 0)) + " V");
+        campo_tipoFalhaGeral.setText(String.valueOf(roundValue(tipoFalha, 2, 0)));
+
+        // ABA PREDIÇÃO
+        campo_tensaoBombaPredicao.setText(String.valueOf(roundValue(tensaoBomba, 2, 0)) + " V");
+        campo_nivelT1Predicao.setText(String.valueOf(roundValue(nivelT1, 2, 0)) + " cm");
+        campo_predT1Predicao.setText(String.valueOf(roundValue(predT1, 2, 0)) + " cm");
+        campo_erroPredicaoPredicao.setText(String.valueOf(roundValue(erroPredT1, 2, 0)) + " cm");
+
+        // ABA DIAGNOSTICO
+        campo_nivelT1Diag.setText(String.valueOf(roundValue(nivelT1, 2, 0)) + " cm");
+        campo_predT1Diag.setText(String.valueOf(roundValue(predT1, 2, 0)) + " cm");
+        campo_sinalRealDiag.setText(String.valueOf(roundValue(sinalReal, 2, 0)) + " cm");
+        campo_sinalEstimadoDiag.setText(String.valueOf(roundValue(sinalEstimado, 2, 0)) + " cm");
+        campo_tipoFalhaDiag.setText(String.valueOf(roundValue(tipoFalha, 2, 0)));
+
+        // ABA CORREÇÃO
+        campo_falhasFiltradasCorrecao.setText(String.valueOf(roundValue(falhasFiltradas, 2, 0)) + " cm");
+        campo_sinalCorrigidoCorrecao.setText(String.valueOf(roundValue(sinalCorrigido, 0, 0)) + " cm");
+        campo_sinalComFalhasCorrecao.setText(String.valueOf(roundValue(sinalComFalhasNivelT1, 2, 0)) + " cm");
     }
 
     public void tipoFalha() {
@@ -1130,18 +1592,36 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JToggleButton botao_simularFalhas;
     private javax.swing.JTextField campo_diag;
     public javax.swing.JTextField campo_enderecoArq;
+    private javax.swing.JTextField campo_erroPredicaoPredicao;
+    private javax.swing.JTextField campo_falhasFiltradasCorrecao;
     private javax.swing.JTextField campo_nivelCorrigido;
     private javax.swing.JTextField campo_nivelT1;
+    private javax.swing.JTextField campo_nivelT1Diag;
+    private javax.swing.JTextField campo_nivelT1Predicao;
+    private javax.swing.JTextField campo_nivelT1geral;
     public javax.swing.JTextArea campo_pesos;
     private javax.swing.JTextField campo_predT1;
+    private javax.swing.JTextField campo_predT1Diag;
+    private javax.swing.JTextField campo_predT1Predicao;
+    private javax.swing.JTextField campo_predT1geral;
+    private javax.swing.JTextField campo_sinalComFalhasCorrecao;
+    private javax.swing.JTextField campo_sinalCorrigidoCorrecao;
+    private javax.swing.JTextField campo_sinalCorrigidogeral;
+    private javax.swing.JTextField campo_sinalEstimadoDiag;
+    private javax.swing.JTextField campo_sinalRealDiag;
     private javax.swing.JTextField campo_tensao;
+    private javax.swing.JTextField campo_tensaoBombaGeral;
+    private javax.swing.JTextField campo_tensaoBombaPredicao;
     private javax.swing.JTextField campo_tensaoEscrita;
     private javax.swing.JTextField campo_tipoFalha;
+    private javax.swing.JTextField campo_tipoFalhaDiag;
+    private javax.swing.JTextField campo_tipoFalhaGeral;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1156,8 +1636,24 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1170,7 +1666,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel label_clienteOPC;
     private javax.swing.JLabel label_hostOPC;
@@ -1182,9 +1685,21 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JTabbedPane painelAba_Graficos;
     private javax.swing.JTabbedPane painelAba_config;
     private javax.swing.JPanel painel_AbaCorrecao;
+    private javax.swing.JPanel painel_AbaCorrecao2;
+    private javax.swing.JScrollPane painel_AbaCorrecao3;
+    private javax.swing.JPanel painel_AbaCorrecao4;
     private javax.swing.JPanel painel_AbaDiag;
+    private javax.swing.JPanel painel_AbaDiag2;
+    private javax.swing.JScrollPane painel_AbaDiag3;
+    private javax.swing.JPanel painel_AbaDiag4;
     private javax.swing.JPanel painel_AbaGeral;
+    private javax.swing.JPanel painel_AbaGeral2;
+    private javax.swing.JScrollPane painel_AbaGeral3;
+    private javax.swing.JPanel painel_AbaGeral4;
     private javax.swing.JPanel painel_AbaPredicao;
+    private javax.swing.JPanel painel_AbaPredicao2;
+    private javax.swing.JScrollPane painel_AbaPredicao3;
+    private javax.swing.JPanel painel_AbaPredicao4;
     private javax.swing.JPanel painel_ComOPC;
     private javax.swing.JPanel painel_RNA;
     private javax.swing.JPanel painel_barraT1;
