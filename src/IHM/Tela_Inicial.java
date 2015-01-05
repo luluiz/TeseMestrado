@@ -2,7 +2,7 @@ package IHM;
 
 import Agentes.Agente_de_Decisao;
 import Agentes.Agente_de_Diagnostico;
-import Agentes.Agente_de_Execucao;
+import Agentes.Agente_de_Correcao;
 import Agentes.Agente_de_Predicao;
 import Agentes.Ambiente;
 import OPC.ClienteOPC;
@@ -42,14 +42,15 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private final Ambiente ambiente = new Ambiente();
     private Agentes.Agente_de_Decisao agDecisao = new Agente_de_Decisao();
     private final Agentes.Agente_de_Diagnostico agDiagnostico = new Agente_de_Diagnostico();
-    private final Agentes.Agente_de_Execucao agExecucao = new Agente_de_Execucao();
+    private final Agentes.Agente_de_Correcao agExecucao = new Agente_de_Correcao();
     private final Agentes.Agente_de_Predicao agPredicao = new Agente_de_Predicao();
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
-        setLocationRelativeTo(null);
         this.cliente = cliente;
-        setExtendedState(MAXIMIZED_BOTH);
+        //setExtendedState(MAXIMIZED_HORIZ);
+        setSize(1366, 720);
+        setLocationRelativeTo(null);
         cadastrarMinhasTags();
         inicializarGraficos();
         setPropriedadesDoGrafico();
@@ -142,6 +143,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         lista_tagsOPC = new javax.swing.JList();
         jLabel20 = new javax.swing.JLabel();
         botao_cadastrarNovaTag = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         painel_RNA = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         campo_enderecoArq = new javax.swing.JTextField();
@@ -150,6 +152,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
         campo_pesos = new javax.swing.JTextArea();
         botao_habilitarEdicao = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         painel_monitorar = new javax.swing.JPanel();
         painel_barraT1 = new javax.swing.JPanel();
@@ -190,7 +194,22 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        menu_painelGraficos = new javax.swing.JMenuItem();
+        menu_painelConfig = new javax.swing.JMenuItem();
+        menu_painelMonitorar = new javax.swing.JMenuItem();
+        menu_avancarTab = new javax.swing.JMenuItem();
+        menu_voltarTab = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Inicial");
@@ -734,6 +753,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         botao_cadastrarNovaTag.setText("Cadastrar Nova Tag");
 
+        jButton2.setText("Remover Tag");
+
         javax.swing.GroupLayout painel_ComOPCLayout = new javax.swing.GroupLayout(painel_ComOPC);
         painel_ComOPC.setLayout(painel_ComOPCLayout);
         painel_ComOPCLayout.setHorizontalGroup(
@@ -761,11 +782,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(label_statusOPC)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(jLabel20)
-                    .addComponent(botao_cadastrarNovaTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        .addComponent(jLabel20)
+                        .addComponent(botao_cadastrarNovaTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         painel_ComOPCLayout.setVerticalGroup(
@@ -789,11 +812,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(label_clienteOPC)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(label_clienteOPC))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botao_cadastrarNovaTag)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         painelAba_config.addTab("Comunicação OPC", painel_ComOPC);
@@ -823,6 +849,12 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         jButton1.setText("Aplicar via OPC");
 
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("----------INSTRUÇÕES----------\n\nArquitetura da RNA de modelo NARX:\n2-3-1 com 2 atrasos em cada entrada.\n\nNomear os neurônios e funções de ativação da seguinte forma:\nNeurônios da camada oculta: n11, n12, n21, n22, n31, n32.\nFunções de ativação: FUNÇÃO_DE_ATIVAÇÃO_1 e FUNÇÃO_DE_ATIVAÇÃO_2.\nNeurônios da camada de saída: ns1.");
+        jScrollPane3.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout painel_RNALayout = new javax.swing.GroupLayout(painel_RNA);
         painel_RNA.setLayout(painel_RNALayout);
         painel_RNALayout.setHorizontalGroup(
@@ -838,12 +870,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(campo_enderecoArq))
                             .addGroup(painel_RNALayout.createSequentialGroup()
-                                .addGap(0, 281, Short.MAX_VALUE)
+                                .addGap(0, 277, Short.MAX_VALUE)
                                 .addComponent(jButton1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painel_RNALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botao_habilitarEdicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botao_carregarArq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(botao_carregarArq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         painel_RNALayout.setVerticalGroup(
@@ -859,7 +892,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     .addComponent(botao_habilitarEdicao)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -869,11 +904,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 513, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
         );
 
         painelAba_config.addTab("Classificador Fuzzy", jPanel4);
@@ -897,9 +932,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         painel_camadas.add(painel_config);
         painel_config.setBounds(0, 0, 554, 448);
 
-        painel_monitorar.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitorar"));
-
-        painel_barraT1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        painel_monitorar.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento em Tempo-Real"));
 
         barra_T1.setBackground(new java.awt.Color(255, 255, 255));
         barra_T1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1213,11 +1246,91 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("Arquivo");
+        jMenu1.setText("Sistema");
+
+        jMenuItem3.setText("Parar Simulação de Falhas");
+        jMenu1.add(jMenuItem3);
+
+        jMenu4.setText("Simular Falhas");
+
+        jMenuItem5.setText("Falha Zero");
+        jMenu4.add(jMenuItem5);
+
+        jMenuItem6.setText("Falha Fundo de Escala");
+        jMenu4.add(jMenuItem6);
+
+        jMenuItem7.setText("Falha Deriva");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem2.setText("Sem Falha");
+        jMenu4.add(jMenuItem2);
+
+        jMenuItem8.setText("Falhas em Sequência");
+        jMenu4.add(jMenuItem8);
+
+        jMenu1.add(jMenu4);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItem4.setText("Sair");
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Editar");
+        jMenu2.setText("Visualizar");
+
+        menu_painelGraficos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
+        menu_painelGraficos.setText("Painel Gráficos");
+        menu_painelGraficos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_painelGraficosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_painelGraficos);
+
+        menu_painelConfig.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK));
+        menu_painelConfig.setText("Painel de Configurações");
+        menu_painelConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_painelConfigActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_painelConfig);
+
+        menu_painelMonitorar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_MASK));
+        menu_painelMonitorar.setText("Painel Manitorar");
+        menu_painelMonitorar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_painelMonitorarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_painelMonitorar);
+
+        menu_avancarTab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.ALT_MASK));
+        menu_avancarTab.setText("Avançar Tab");
+        menu_avancarTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_avancarTabActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_avancarTab);
+
+        menu_voltarTab.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
+        menu_voltarTab.setText("Voltar Tab");
+        menu_voltarTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_voltarTabActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_voltarTab);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Ajuda");
+
+        jMenuItem1.setText("Sobre");
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -1363,6 +1476,40 @@ public class Tela_Inicial extends javax.swing.JFrame {
             flagEntComFalha = false;
         }
     }//GEN-LAST:event_botao_simularFalhasActionPerformed
+
+    private void menu_painelGraficosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_painelGraficosActionPerformed
+        botao_graficosActionPerformed(evt);
+    }//GEN-LAST:event_menu_painelGraficosActionPerformed
+
+    private void menu_painelConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_painelConfigActionPerformed
+        botao_configActionPerformed(evt);
+    }//GEN-LAST:event_menu_painelConfigActionPerformed
+
+    private void menu_painelMonitorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_painelMonitorarActionPerformed
+        botao_monitorarActionPerformed(evt);
+    }//GEN-LAST:event_menu_painelMonitorarActionPerformed
+
+    private void menu_avancarTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_avancarTabActionPerformed
+        int tabAtual = painelAba_Graficos.getSelectedIndex();
+        int nTab = painelAba_Graficos.getTabCount();
+
+        if (tabAtual == nTab - 1) {
+            painelAba_Graficos.setSelectedIndex(0);
+        } else {
+            painelAba_Graficos.setSelectedIndex(tabAtual + 1);
+        }
+    }//GEN-LAST:event_menu_avancarTabActionPerformed
+
+    private void menu_voltarTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_voltarTabActionPerformed
+        int tabAtual = painelAba_Graficos.getSelectedIndex();
+        int nTab = painelAba_Graficos.getTabCount();
+
+        if (tabAtual == 0) {
+            painelAba_Graficos.setSelectedIndex(nTab - 1);
+        } else {
+            painelAba_Graficos.setSelectedIndex(tabAtual - 1);
+        }
+    }//GEN-LAST:event_menu_voltarTabActionPerformed
 
     public void inicializarGraficos() {
         grafico_geral = new Grafico_Geral("Principais Sinais do Sistema", painel_AbaGeral2.getWidth(), painel_AbaGeral2.getHeight());
@@ -1620,6 +1767,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JTextField campo_tipoFalhaDiag;
     private javax.swing.JTextField campo_tipoFalhaGeral;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1664,10 +1812,21 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -1677,6 +1836,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel label_clienteOPC;
     private javax.swing.JLabel label_hostOPC;
@@ -1685,6 +1845,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel label_svOPC;
     private javax.swing.JList lista_tagsOPC;
     private javax.swing.JComboBox lista_tipoFalha;
+    private javax.swing.JMenuItem menu_avancarTab;
+    private javax.swing.JMenuItem menu_painelConfig;
+    private javax.swing.JMenuItem menu_painelGraficos;
+    private javax.swing.JMenuItem menu_painelMonitorar;
+    private javax.swing.JMenuItem menu_voltarTab;
     private javax.swing.JTabbedPane painelAba_Graficos;
     private javax.swing.JTabbedPane painelAba_config;
     private javax.swing.JPanel painel_AbaCorrecao;

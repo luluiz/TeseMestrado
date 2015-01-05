@@ -27,8 +27,8 @@ public class Grafico_Diagnostico extends ApplicationFrame {
     private final Render render = new Render();
     final private TimeSeries nivelT1 = new TimeSeries("Nível T1", Millisecond.class);
     final private TimeSeries predT1 = new TimeSeries("Predição Nível T1", Millisecond.class);
-    final private TimeSeries sinalReal = new TimeSeries("Entrada Fuzzy: Sinal Real", Millisecond.class);
-    final private TimeSeries sinalEstimado = new TimeSeries("Entrada Fuzzy: Sinal Estimado", Millisecond.class);
+    final private TimeSeries sinalReal = new TimeSeries("Entrada Fuzzy: ∆Sinal Real", Millisecond.class);
+    final private TimeSeries sinalEstimado = new TimeSeries("Entrada Fuzzy: ∆Sinal Estimado", Millisecond.class);
     final private TimeSeries tipoFalha = new TimeSeries("Saída Fuzzy: Tipo de Falha", Millisecond.class);
 
 

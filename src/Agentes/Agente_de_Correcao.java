@@ -4,15 +4,15 @@ package Agentes;
  *
  * @author Veyron-PC
  */
-public class Agente_de_Execucao extends Ambiente {
+public class Agente_de_Correcao extends Ambiente {
 
-    private String nome = "Agente de Execução";
+    private String nome = "Agente de Correção";
     private double sinalCorrigido;
 
-    public Agente_de_Execucao() {
+    public Agente_de_Correcao() {
     }
 
-    public Agente_de_Execucao(double sinalCorrigido) {
+    public Agente_de_Correcao(double sinalCorrigido) {
         this.sinalCorrigido = sinalCorrigido;
     }
 

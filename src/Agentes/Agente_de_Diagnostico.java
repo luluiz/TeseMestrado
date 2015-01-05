@@ -6,7 +6,7 @@ package Agentes;
  */
 public class Agente_de_Diagnostico extends Ambiente {
 
-    private String nome = "Agente de Predição";
+    private String nome = "Agente de Diagnóstico";
     private double tipoFalha;
     private boolean flagFalha = false;
 

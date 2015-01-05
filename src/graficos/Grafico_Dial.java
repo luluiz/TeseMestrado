@@ -34,18 +34,23 @@ public class Grafico_Dial extends ApplicationFrame implements ChangeListener {
 
     public Grafico_Dial(final String title, int x, int y) {
         super(title);
-        JFreeChart localJFreeChart = createStandardDialChart("Bomba", "Tensão (V)", this.dataset, 0.0D, 12.0D, 1.0D, 3);
+        JFreeChart localJFreeChart = createStandardDialChart("Bomba", "Tensão (V)", this.dataset, 0.0D, 7.0D, 1.0D, 3);
         DialPlot localDialPlot = (DialPlot) localJFreeChart.getPlot();
-        
-        StandardDialRange localStandardDialRange1 = new StandardDialRange(10.0D, 12.0D, Color.red);
+
+        StandardDialRange localStandardDialRange1 = new StandardDialRange(5.0D, 7.0D, Color.red);
         localStandardDialRange1.setInnerRadius(0.52D);
         localStandardDialRange1.setOuterRadius(0.55D);
         localDialPlot.addLayer(localStandardDialRange1);
 
-        StandardDialRange localStandardDialRange2 = new StandardDialRange(0.0D, 10.0D, Color.green);
+        StandardDialRange localStandardDialRange2 = new StandardDialRange(1.0D, 5.0D, Color.green);
         localStandardDialRange2.setInnerRadius(0.52D);
         localStandardDialRange2.setOuterRadius(0.55D);
         localDialPlot.addLayer(localStandardDialRange2);
+
+        StandardDialRange localStandardDialRange3 = new StandardDialRange(0.0D, 1.0D, Color.yellow);
+        localStandardDialRange3.setInnerRadius(0.52D);
+        localStandardDialRange3.setOuterRadius(0.55D);
+        localDialPlot.addLayer(localStandardDialRange3);
 
         GradientPaint localGradientPaint = new GradientPaint(new Point(), new Color(255, 255, 255), new Point(), new Color(170, 170, 220));
         DialBackground localDialBackground = new DialBackground(localGradientPaint);
