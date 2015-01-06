@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javafish.clients.opc.component.OpcItem;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,6 +45,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private final Agentes.Agente_de_Diagnostico agDiagnostico = new Agente_de_Diagnostico();
     private final Agentes.Agente_de_Correcao agExecucao = new Agente_de_Correcao();
     private final Agentes.Agente_de_Predicao agPredicao = new Agente_de_Predicao();
+    private String col[] = {"DATA/HORA", "TIPO DE FALHA"};
+    private DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
     public Tela_Inicial(ClienteOPC cliente) {
         initComponents();
@@ -57,6 +60,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         atualizarDadosAbaConfig();
         principal();
         botao_graficosActionPerformed(null);
+        tabela_histFalhas.setModel(tableModel);
     }
 
     @SuppressWarnings("unchecked")
@@ -192,6 +196,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabela_histFalhas = new javax.swing.JTable();
+        jLabel31 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -785,10 +792,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addGroup(painel_ComOPCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                        .addComponent(jLabel20)
-                        .addComponent(botao_cadastrarNovaTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(jLabel20)
+                    .addComponent(botao_cadastrarNovaTag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painel_ComOPCLayout.setVerticalGroup(
@@ -1030,18 +1036,24 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         campo_nivelT1.setEditable(false);
+        campo_nivelT1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_nivelT1.setDragEnabled(true);
 
         campo_predT1.setEditable(false);
+        campo_predT1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_predT1.setDragEnabled(true);
 
         campo_diag.setEditable(false);
+        campo_diag.setBackground(new java.awt.Color(102, 204, 0));
+        campo_diag.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_diag.setDragEnabled(true);
 
         campo_tipoFalha.setEditable(false);
+        campo_tipoFalha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_tipoFalha.setDragEnabled(true);
 
         campo_nivelCorrigido.setEditable(false);
+        campo_nivelCorrigido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_nivelCorrigido.setDragEnabled(true);
 
         jLabel2.setText("Tensão da Bomba:");
@@ -1075,7 +1087,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jLabel21.setText("Tensão Escrita na Bomba");
 
         campo_tensao.setEditable(false);
+        campo_tensao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         campo_tensao.setDragEnabled(true);
+        campo_tensao.setMaximumSize(new java.awt.Dimension(10, 20));
+        campo_tensao.setMinimumSize(new java.awt.Dimension(10, 20));
+        campo_tensao.setPreferredSize(new java.awt.Dimension(10, 20));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel22.setText("Tensão:");
@@ -1131,7 +1147,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     .addComponent(campo_diag, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campo_tipoFalha, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campo_nivelT1)
-                    .addComponent(campo_tensao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campo_tensao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campo_nivelCorrigido, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1178,7 +1194,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         .addGap(15, 15, 15))
                     .addGroup(painel_monitorLayout.createSequentialGroup()
                         .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(painel_monitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(campo_tensaoEscrita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1199,6 +1215,28 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tabela_histFalhas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tabela_histFalhas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tabela_histFalhas.setColumnSelectionAllowed(true);
+        tabela_histFalhas.setGridColor(new java.awt.Color(0, 0, 0));
+        jScrollPane4.setViewportView(tabela_histFalhas);
+        tabela_histFalhas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("Histórico de Falhas");
+        jLabel31.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         javax.swing.GroupLayout painel_monitorarLayout = new javax.swing.GroupLayout(painel_monitorar);
         painel_monitorar.setLayout(painel_monitorarLayout);
         painel_monitorarLayout.setHorizontalGroup(
@@ -1210,16 +1248,28 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(painel_dialTensao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painel_monitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
+                .addContainerGap())
         );
         painel_monitorarLayout.setVerticalGroup(
             painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_monitorarLayout.createSequentialGroup()
-                .addComponent(painel_monitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painel_dialTensao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, Short.MAX_VALUE)))
+            .addGroup(painel_monitorarLayout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painel_monitorarLayout.createSequentialGroup()
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painel_monitorarLayout.createSequentialGroup()
+                        .addComponent(painel_monitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(painel_monitorarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(painel_dialTensao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(painel_barraT1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, Short.MAX_VALUE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         painel_camadas.add(painel_monitorar);
@@ -1641,6 +1691,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         label_clienteOPC.setText(cliente.getNomeCliente());
     }
 
+    @SuppressWarnings("empty-statement")
     public void atualizarCamposMonitoramentoAbaMonitorar() {
         campo_tensao.setText(String.valueOf(roundValue(tensaoBomba, 2, 0)));
         campo_nivelT1.setText(String.valueOf(roundValue(nivelT1, 2, 0)));
@@ -1651,6 +1702,45 @@ public class Tela_Inicial extends javax.swing.JFrame {
         barra_T1.setString(String.valueOf(Math.round((nivelT1 * 100) / 30)));
         label_nivelT1.setText("Nivel Tanque 1: " + Math.round(nivelT1) + " cm");
         grafico_dial.setValorDial(tensaoBomba);
+
+        String diagFalha = "teste";
+        Color vermelhoClaro = new Color(255, 102, 102);
+        String hora = String.valueOf(grafico_geral.getTempo()).substring(0, 19);
+
+        if (tipoFalha >= 3.5 && tipoFalha <= 4) {
+            diagFalha = "Sem Falha";
+            campo_diag.setBackground(Color.GREEN);
+            Object linha[] = {hora, diagFalha};
+            verificaTabela(linha, diagFalha);
+        } else if (tipoFalha >= 2.5 && tipoFalha <= 3.4) {
+            diagFalha = "Falha de Deriva";
+            campo_diag.setBackground(vermelhoClaro);
+            Object linha[] = {hora, diagFalha};
+            verificaTabela(linha, diagFalha);
+        } else if (tipoFalha >= 1.5 && tipoFalha <= 2.4) {
+            diagFalha = "Falha Fundo de Escala";
+            campo_diag.setBackground(vermelhoClaro);
+            Object linha[] = {hora, diagFalha};
+            verificaTabela(linha, diagFalha);
+        } else if (tipoFalha >= 0.5 && tipoFalha <= 1.4) {
+            diagFalha = "Falha Zero";
+            campo_diag.setBackground(vermelhoClaro);
+            Object linha[] = {hora, diagFalha};
+            verificaTabela(linha, diagFalha);
+        }
+        campo_diag.setText(diagFalha);
+        flag = false;
+    }
+
+    public void verificaTabela(Object linha[], String x) {
+        if (tableModel.getRowCount() == 0) {
+            tableModel.addRow(linha);
+        } else {
+            if (tableModel.getValueAt(tableModel.getRowCount() - 1, 1) != x) {
+                tableModel.addRow(linha);
+            }
+        }
+
     }
 
     public void atualizarCamposGraficos() {
@@ -1792,6 +1882,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -1827,6 +1918,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -1878,5 +1970,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JPanel painel_inicial;
     private javax.swing.JPanel painel_monitor;
     private javax.swing.JPanel painel_monitorar;
+    private javax.swing.JTable tabela_histFalhas;
     // End of variables declaration//GEN-END:variables
 }

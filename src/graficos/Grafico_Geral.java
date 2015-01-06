@@ -30,6 +30,7 @@ public class Grafico_Geral extends ApplicationFrame {
     final private TimeSeries nivelCorrigido = new TimeSeries("Sinal do Nível do Tanque Corrigido", Millisecond.class);
     final private TimeSeries tensaoBomba = new TimeSeries("Tensão da Bomba", Millisecond.class);
     final private TimeSeries tipoFalha = new TimeSeries("Diagnóstoco do Tipo de Falha", Millisecond.class);
+    public Millisecond tempo;
 
     public Grafico_Geral(final String title, int x, int y) {
         super(title);
@@ -100,7 +101,7 @@ public class Grafico_Geral extends ApplicationFrame {
 
     public void addValores(double nivelT1, double predT1, double sinalCorrigido, double tensaoBomba, double tipoFalha) {
         Millisecond time = new Millisecond();
-
+        tempo = time;
         collection1.getSeries(0).addOrUpdate(time, nivelT1);
         collection1.getSeries(1).addOrUpdate(time, predT1);
         collection1.getSeries(2).addOrUpdate(time, sinalCorrigido);
@@ -115,4 +116,9 @@ public class Grafico_Geral extends ApplicationFrame {
         demo.setVisible(true);
 
     }
+
+    public Millisecond getTempo() {
+        return tempo;
+    }
+
 }
