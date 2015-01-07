@@ -35,9 +35,6 @@ public class Tela_Conexao extends javax.swing.JFrame {
         lista_servidores = new javax.swing.JComboBox();
         botao_atualizar = new javax.swing.JButton();
         botao_desconectar = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setTitle("OPC COM");
 
@@ -61,7 +58,7 @@ public class Tela_Conexao extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Configuração"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comunicação OPC"));
 
         campo_host.setText("localhost");
 
@@ -128,14 +125,6 @@ public class Tela_Conexao extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Arquivo");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Editar");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,8 +167,13 @@ public class Tela_Conexao extends javax.swing.JFrame {
     }//GEN-LAST:event_botao_conectarActionPerformed
 
     private void botao_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_cancelarActionPerformed
-        cliente.desconectar();
+        try {
+            cliente.desconectar();
+        } catch (Exception e) {
+
+        }
         this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_botao_cancelarActionPerformed
 
     private void botao_desconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_desconectarActionPerformed
@@ -233,9 +227,6 @@ public class Tela_Conexao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox lista_servidores;
     // End of variables declaration//GEN-END:variables

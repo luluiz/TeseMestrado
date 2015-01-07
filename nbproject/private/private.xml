@@ -6,11 +6,12 @@
         <group>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/SimularFalhas/SimularFalhas.java</file>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/Agentes/Agente_de_Decisao.java</file>
+            <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/IHM/NewJFrame.java</file>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/Agentes/Agente_de_Diagnostico.java</file>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/IHM/Tela_Inicial.java</file>
-            <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/OPC/ClienteOPC.java</file>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/Agentes/Agente_de_Predicao.java</file>
-            <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/Agentes/Agente_de_Execucao.java</file>
+            <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/graficos/Grafico_Correcao.java</file>
+            <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/IHM/Tela_Conexao.java</file>
             <file>file:/E:/Documents%20and%20Settings/Veyron-PC/Meus%20documentos/NetBeansProjects/TeseMestrado/src/Agentes/Ambiente.java</file>
         </group>
     </open-files>
